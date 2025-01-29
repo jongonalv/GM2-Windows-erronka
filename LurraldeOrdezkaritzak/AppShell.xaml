@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="LurraldeOrdezkaritzak.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:LurraldeOrdezkaritzak"
+    Title="LurraldeOrdezkaritzak"
+>
+
+    <ShellContent
+        Title="MainPage"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+
+    <TabBar>
+        <ShellContent  
+         Title="Etxea" Icon="etxea.png"
+         ContentTemplate="{DataTemplate local:Hasiera}"
+         Route="Hasiera" />
+
+        <ShellContent 
+         Title="Stock" Icon="stock.png" 
+         ContentTemplate="{DataTemplate local:Stock}"
+         Route="Stock"/>
+
+        <ShellContent 
+          Title="Eskaerak" Icon="pedido.png" 
+          ContentTemplate="{DataTemplate local:Eskaerak}"
+          Route="Eskaerak"/>
+
+        <ShellContent 
+          Title="Eskaerak Egoitza" Icon="egoitza.png" 
+          ContentTemplate="{DataTemplate local:EskaerakEgoitza}"
+          Route="EskaerakEgoitza"/>
+
+        <ShellContent 
+          Title="Estadistikak" Icon="estadistika.png" 
+          ContentTemplate="{DataTemplate local:Estadistikak}"
+          Route="Estadistikak"/>
+    </TabBar>
+
+</Shell>

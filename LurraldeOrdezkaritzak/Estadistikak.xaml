@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LurraldeOrdezkaritzak.Estadistikak"
+             Title="Estadistikak">
+    <Grid>
+        <Image Source="fondoestadistika.jpg" Aspect="AspectFill"
+            VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  />
+
+        <ScrollView>
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="150">
+                <HorizontalStackLayout>
+                    <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
+                        Opacity="0.9" WidthRequest="700" HeightRequest="600"
+                        HorizontalOptions="Center">
+
+                    </Frame>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
+                        Opacity="0.9" WidthRequest="700" HeightRequest="600"
+                        HorizontalOptions="Center">
+
+                    </Frame>
+                </HorizontalStackLayout>
+            </HorizontalStackLayout>
+
+        </ScrollView>
+    </Grid>
+</ContentPage>

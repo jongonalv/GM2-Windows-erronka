@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LurraldeOrdezkaritzak.Hasiera"
+            >
+    <Grid>
+        <Image Source="fondohasiera.jpg" Aspect="AspectFill"
+               VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  />
+
+        <ScrollView>
+            <VerticalStackLayout
+                Padding="30,0"
+                Spacing="25"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+
+
+                <Image Source="logoTuercas.png" WidthRequest="200" />
+                <VerticalStackLayout HorizontalOptions="Center" Spacing="10">
+                    <HorizontalStackLayout Spacing="20">
+                        <Image Source="tlf.png" WidthRequest="50"/>
+                        <Label Text="+34 699 69 69 69" VerticalOptions="Center" FontSize="20" TextColor="White"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="20">
+                        <Image Source="posta.png" WidthRequest="50"/>
+                        <Label Text="kevintodotuercas@gmail.com" VerticalOptions="Center" FontSize="20" TextColor="White">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="emailKlikatzerakoan"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="20">
+                        <Image Source="ubi.png" WidthRequest="50"/>
+                        <Label Text="Guarromán, Calle Sevilla 45." VerticalOptions="Center" FontSize="20" TextColor="White"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+                <WebView WidthRequest="1000" HeightRequest="400" x:Name="Guarroman"></WebView>
+
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

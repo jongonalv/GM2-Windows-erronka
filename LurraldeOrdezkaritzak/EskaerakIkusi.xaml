@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LurraldeOrdezkaritzak.EskaerakIkusi"
+             Title="EskaerakIkusi">
+    
+    <Grid>
+        <Image Source="fondobidalketak.jpg" Aspect="AspectFill"
+            VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  />
+
+        <ScrollView>
+
+            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="20">
+                <HorizontalStackLayout  Spacing="150">
+                    <VerticalStackLayout>
+                        
+                        <!--En este label tiene que salir el id eskaera que hemos elegido-->
+                        <Label Text="Id Eskaera:"  TextColor="White" FontSize="25" FontAttributes="Bold"/>
+                        
+                        <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
+                            Opacity="0.9" WidthRequest="600" HeightRequest="650" >
+
+                        </Frame>
+                        
+                    </VerticalStackLayout>
+                    
+
+                    <VerticalStackLayout VerticalOptions="Center" HeightRequest="700">
+                        <Label  Text="Produktuen lista:" TextColor="White" FontSize="25" FontAttributes="Bold"/>
+                        <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
+                             Opacity="0.9" WidthRequest="600" HeightRequest="250">
+        
+                        </Frame>
+
+                        <Label  Text="Falta diren produktuen lista:" TextColor="White" FontSize="25" FontAttributes="Bold" Margin="0,40,0,0"/>
+                        <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
+                          Opacity="0.9" WidthRequest="600" HeightRequest="250">
+
+                        </Frame>
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="50" Margin="0,30,0,0">
+                            <Button Text="Prestatuta" BackgroundColor="#876f05" TextColor="White"/>
+                            <Button Text="Bidalita" BackgroundColor="#01264b" TextColor="White"/>
+                            <Button Text="Bukatuta" BackgroundColor="#046127" TextColor="White"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+                
+                <HorizontalStackLayout>
+                    <Button Text="Atzera" BackgroundColor="LightGray" TextColor="Black" Clicked="Atzera_Clicked"/>
+                </HorizontalStackLayout>
+                
+               
+            </VerticalStackLayout>
+            
+            
+
+        </ScrollView>
+    </Grid>
+</ContentPage>

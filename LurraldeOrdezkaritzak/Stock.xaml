@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LurraldeOrdezkaritzak.Stock"
+             Title="Stock">
+    <Grid>
+        <Image Source="fondo.jpg" Aspect="AspectFill"
+            VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  />
+
+        <ScrollView>
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="150">
+                <VerticalStackLayout VerticalOptions="Center">
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="50">
+                        <Entry Placeholder="Id-a jarri" PlaceholderColor="Gray" BackgroundColor="White" Opacity="0.9" WidthRequest="100" HeightRequest="40" />
+                        <Picker BackgroundColor="White" Opacity="0.9" WidthRequest="200" HeightRequest="40">
+                            <Picker.Items>
+                                <x:String>Opción 1</x:String>
+                                <x:String>Opción 2</x:String>
+                                <x:String>Opción 3</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </HorizontalStackLayout>
+                    
+                        
+                    <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
+                        Opacity="0.9" WidthRequest="700" HeightRequest="600"
+                        HorizontalOptions="Center">
+                       
+                    </Frame>
+                </VerticalStackLayout>
+                <VerticalStackLayout VerticalOptions="Center">
+                    <!--En este label tiene que salir el id y el nombre del produkto que hemos elegido-->
+                    <Label Text="Id Produktua:            Izena:"  TextColor="White" FontSize="25" FontAttributes="Bold"/>
+                    <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
+                        Opacity="0.9" WidthRequest="700" HeightRequest="600"
+                        HorizontalOptions="Center">
+
+                    </Frame>
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+
+        </ScrollView>
+    </Grid>
+</ContentPage>
