@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:itemViews="clr-namespace:LurraldeOrdezkaritzak.ItemViews"
-             x:Class="LurraldeOrdezkaritzak.Stock"
-             Title="Stock">
+             x:Class="LurraldeOrdezkaritzak.EskaeraEgoitzaEskatu"
+             Title="EskaeraEgoitzaEskatu">
     <Grid>
-        <Image Source="fondo.jpg" Aspect="AspectFill"
+        <Image Source="fondoegoitzaeskatu.jpg" Aspect="AspectFill"
             VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  />
 
         <ScrollView>
@@ -26,12 +25,9 @@
                     <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
                         Opacity="0.9" WidthRequest="700" HeightRequest="600"
                         HorizontalOptions="Center">
-
-
                         <ScrollView>
-                            <itemViews:Stock />
+                            <Button HeightRequest="20" WidthRequest="100" Text="Eskatu" Clicked="OnEskatuButtonClickedAsync"/>
                         </ScrollView>
-
                     </Frame>
                 </VerticalStackLayout>
                 <VerticalStackLayout VerticalOptions="Center">
@@ -40,13 +36,12 @@
                     <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
                         Opacity="0.9" WidthRequest="700" HeightRequest="600"
                         HorizontalOptions="Center">
-                        <ScrollView>
-                            <itemViews:StockProduktuak />
-                        </ScrollView>
+
                     </Frame>
                 </VerticalStackLayout>
             </HorizontalStackLayout>
 
         </ScrollView>
+
     </Grid>
 </ContentPage>

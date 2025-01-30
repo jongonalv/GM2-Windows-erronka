@@ -34,9 +34,15 @@
           Route="EskaerakEgoitza"/>
 
         <ShellContent 
+          Title="Eskaera Egoitza Eskatu" Icon="egoitzaeskatu.png" 
+          ContentTemplate="{DataTemplate local:EskaeraEgoitzaEskatu}"
+          Route="Eskaera Egoitza Eskatu"/>
+
+        <ShellContent 
           Title="Estadistikak" Icon="estadistika.png" 
           ContentTemplate="{DataTemplate local:Estadistikak}"
           Route="Estadistikak"/>
+        
     </TabBar>
 
 </Shell>
