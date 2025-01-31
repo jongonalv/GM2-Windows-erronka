@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LurraldeOrdezkaritzak.EskaerakEgoitza"
+             xmlns:itemViews="clr-namespace:LurraldeOrdezkaritzak.ItemViews"
              Title="EskaerakEgoitza">
     <Grid>
         <Image Source="fondoegoitza.jpg" Aspect="AspectFill"
@@ -13,16 +14,23 @@
                     <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
                         Opacity="0.9" WidthRequest="700" HeightRequest="600"
                         HorizontalOptions="Center">
-
+                        <ScrollView>
+                            <itemViews:EskaeraEgoitzaArtikuloa />
+                        </ScrollView>
                     </Frame>
                 </HorizontalStackLayout>
-                <HorizontalStackLayout>
+                
+                <VerticalStackLayout VerticalOptions="Center">
+                    <Label  Text="Eskaera egoitza historiala" TextColor="White" FontSize="25" FontAttributes="Bold" Margin="0,40,0,0"/>
                     <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
                         Opacity="0.9" WidthRequest="700" HeightRequest="600"
-                        HorizontalOptions="Center">
-
+                        HorizontalOptions="Center" >
+                        <ScrollView>
+                            <itemViews:EskaeraEgoitza />
+                        </ScrollView>
+                        
                     </Frame>
-                </HorizontalStackLayout>
+                </VerticalStackLayout>
             </HorizontalStackLayout>
 
         </ScrollView>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LurraldeOrdezkaritzak.ItemViews.EskaeraEgoitzaEskatu">
+    <VerticalStackLayout Spacing="20">
+        <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start">
+            <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center">
+                <Label Text="1" VerticalOptions="Center" FontSize="23" />
+                <Label Text="Martillito" VerticalOptions="Center" FontSize="23"/>
+                <Label Text="120" VerticalOptions="Center" FontSize="23"/>
+                <Button HeightRequest="20" WidthRequest="100" Text="Eskatu" BackgroundColor="Black"  Clicked="OnEskatuButtonClickedAsync"/>
+            </HorizontalStackLayout>
+        </Frame>
+        <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start">
+            <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center">
+                <Label Text="3" VerticalOptions="Center" FontSize="23" />
+                <Label Text="Torloju" VerticalOptions="Center" FontSize="23"/>
+                <Label Text="12" VerticalOptions="Center" FontSize="23"/>
+                <Button HeightRequest="20" WidthRequest="100" Text="Eskatu" BackgroundColor="Black" Clicked="OnEskatuButtonClickedAsync"/>
+            </HorizontalStackLayout>
+        </Frame>
+    </VerticalStackLayout>
+</ContentView>

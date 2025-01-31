@@ -79,9 +79,15 @@
 	  <Compile Update="Eskaerak.xaml.cs">
 	    <DependentUpon>Eskaerak.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="ItemViews\EskaeraEgoitzaEskatu.xaml.cs">
+	    <DependentUpon>EskaeraEgoitzaEskatu.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="EskaeraEgoitzaArtikuloa.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="EskaeraEgoitzaEskatu.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -100,7 +106,25 @@
 	  <MauiXaml Update="Hasiera.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="ItemViews\EskaeraEgoitza.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ItemViews\EskaeraEgoitzaArtikuloa.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ItemViews\EskaeraEgoitzaEskatu.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ItemViews\EskaeraEgoitzaEskatuProduktua.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="ItemViews\Eskaerak.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ItemViews\EskaerakIkusiProduktuak.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ItemViews\EskeraEgoitzaIkusi.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="ItemViews\Stock.xaml">

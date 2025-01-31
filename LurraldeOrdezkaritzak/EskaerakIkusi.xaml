@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:itemViews="clr-namespace:LurraldeOrdezkaritzak.ItemViews"
              x:Class="LurraldeOrdezkaritzak.EskaerakIkusi"
              Title="EskaerakIkusi">
     
@@ -27,15 +28,20 @@
 
                     <VerticalStackLayout VerticalOptions="Center" HeightRequest="700">
                         <Label  Text="Produktuen lista:" TextColor="White" FontSize="25" FontAttributes="Bold"/>
+                        
                         <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
                              Opacity="0.9" WidthRequest="600" HeightRequest="250">
-        
+                            <ScrollView>
+                                <itemViews:EskaerakIkusiProduktuak />
+                            </ScrollView>
                         </Frame>
-
+                        
                         <Label  Text="Falta diren produktuen lista:" TextColor="White" FontSize="25" FontAttributes="Bold" Margin="0,40,0,0"/>
                         <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
                           Opacity="0.9" WidthRequest="600" HeightRequest="250">
-
+                            <ScrollView>
+                                <itemViews:EskaerakIkusiProduktuak />
+                            </ScrollView>
                         </Frame>
                         <HorizontalStackLayout HorizontalOptions="Center" Spacing="50" Margin="0,30,0,0">
                             <Button Text="Prestatuta" BackgroundColor="#876f05" TextColor="White"/>
