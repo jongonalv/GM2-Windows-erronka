@@ -6,18 +6,18 @@
     <VerticalStackLayout Spacing="20">
         <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start">
             <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center">
-                <Label Text="1" VerticalOptions="Center" FontSize="23" />
-                <Label Text="Martillito" VerticalOptions="Center" FontSize="23"/>
-                <Label Text="120" VerticalOptions="Center" FontSize="23"/>
-                <Button Text="Entregatu" HeightRequest="20" WidthRequest="120" BackgroundColor="Black" Clicked="OnEntregatuClicked"/>
+                <Label Text="1" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
+                <Label Text="Martillito" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
+                <Label Text="120" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
+                <Button Text="Entregatu"  TextColor="White" HeightRequest="20" WidthRequest="120" BackgroundColor="Black" Clicked="OnEntregatuClicked"/>
             </HorizontalStackLayout>
         </Frame>
-        <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start">
+        <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start" >
             <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center">
-                <Label Text="1" VerticalOptions="Center" FontSize="23" />
-                <Label Text="Martillito" VerticalOptions="Center" FontSize="23"/>
-                <Label Text="120" VerticalOptions="Center" FontSize="23"/>
-                <Button Text="Entregatu" HeightRequest="20" WidthRequest="120" BackgroundColor="Black" Clicked="OnEntregatuClicked"/>
+                <Label Text="1" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
+                <Label Text="Martillito" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
+                <Label Text="120" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
+                <Button Text="Entregatu" HeightRequest="20" WidthRequest="120" BackgroundColor="Black" Clicked="OnEntregatuClicked"  TextColor="White"/>
             </HorizontalStackLayout>
         </Frame>
     </VerticalStackLayout>

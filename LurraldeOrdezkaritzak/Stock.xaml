@@ -3,50 +3,66 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:itemViews="clr-namespace:LurraldeOrdezkaritzak.ItemViews"
              x:Class="LurraldeOrdezkaritzak.Stock"
-             Title="Stock">
+             Title="Stock"
+             BackgroundColor="#F0F0F0">
+
     <Grid>
         <Image Source="fondo.jpg" Aspect="AspectFill"
-            VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  />
+               VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
 
         <ScrollView>
-            <HorizontalStackLayout HorizontalOptions="Center" Spacing="150">
-                <VerticalStackLayout VerticalOptions="Center">
-                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="50">
-                        <Entry Placeholder="Id-a jarri" PlaceholderColor="Gray" BackgroundColor="White" Opacity="0.9" WidthRequest="100" HeightRequest="40" />
-                        <Picker BackgroundColor="White" Opacity="0.9" WidthRequest="200" HeightRequest="40">
-                            <Picker.Items>
-                                <x:String>Opción 1</x:String>
-                                <x:String>Opción 2</x:String>
-                                <x:String>Opción 3</x:String>
-                            </Picker.Items>
-                        </Picker>
+            <Grid HorizontalOptions="Center" VerticalOptions="Center" Padding="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Zutabe 1: Filtroak eta artikulo zerrenda -->
+                <VerticalStackLayout Grid.Column="0" Spacing="20" HorizontalOptions="Center">
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                        <Entry Placeholder="Bilatu izenaren arabera..."
+                               PlaceholderColor="Gray"
+                               BackgroundColor="black"
+                               TextColor="White"
+                               Opacity="0.9"
+                               WidthRequest="150"
+                               HeightRequest="40"
+                               Text="{Binding SearchText, Mode=TwoWay}"/>
+
+                        <Picker ItemsSource="{Binding Kategoriak}"
+                                SelectedItem="{Binding SelectedKategoria, Mode=TwoWay}"
+                                BackgroundColor="Black"
+                                TextColor="White"
+                                Opacity="0.9"
+                                WidthRequest="200"
+                                HeightRequest="40"/>
                     </HorizontalStackLayout>
 
-
-                    <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
-                        Opacity="0.9" WidthRequest="700" HeightRequest="600"
-                        HorizontalOptions="Center">
-
-
-                        <ScrollView>
-                            <itemViews:Stock />
-                        </ScrollView>
-
+                    <Frame CornerRadius="15" BorderColor="#CCCCCC" Padding="20" BackgroundColor="White"
+                           Opacity="0.9" WidthRequest="700" HeightRequest="600"
+                           HorizontalOptions="Center">
+                        <CollectionView ItemsSource="{Binding Artikuloak}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <itemViews:Stock />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
                     </Frame>
                 </VerticalStackLayout>
-                <VerticalStackLayout VerticalOptions="Center">
-                    <!--En este label tiene que salir el id y el nombre del produkto que hemos elegido-->
-                    <Label Text="Id Produktua:            Izena:"  TextColor="White" FontSize="25" FontAttributes="Bold"/>
-                    <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
-                        Opacity="0.9" WidthRequest="700" HeightRequest="600"
-                        HorizontalOptions="Center">
+
+                <!-- Zutabe 2: Eskaerak -->
+                <VerticalStackLayout Grid.Column="1" Spacing="20" HorizontalOptions="Center">
+                    <Label Text="Id Produktua:            Izena:" TextColor="White" FontSize="25" FontAttributes="Bold" />
+                    <Frame CornerRadius="15" BorderColor="#CCCCCC" Padding="20" BackgroundColor="White"
+                           Opacity="0.9" WidthRequest="700" HeightRequest="600"
+                           HorizontalOptions="Center">
                         <ScrollView>
                             <itemViews:StockProduktuak />
                         </ScrollView>
                     </Frame>
                 </VerticalStackLayout>
-            </HorizontalStackLayout>
-
+            </Grid>
         </ScrollView>
     </Grid>
 </ContentPage>

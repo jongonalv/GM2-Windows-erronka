@@ -5,10 +5,9 @@
 
     <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start">
         <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center">
-            <Label Text="1" VerticalOptions="Center" FontSize="23" />
-            <Label Text="Hegoi ha roto el fokin pakete" VerticalOptions="Center" FontSize="23"/>
-            <Label Text="12" VerticalOptions="Center" FontSize="23"/>
-           
+            <Label Text="1" VerticalOptions="Center" FontSize="23" TextColor="Black"/>
+            <Label Text="Hegoi ha roto el fokin pakete" VerticalOptions="Center" FontSize="23" TextColor="Black"/>
+            <Label Text="12" VerticalOptions="Center" FontSize="23" TextColor="Black"/>
         </HorizontalStackLayout>
     </Frame>
 

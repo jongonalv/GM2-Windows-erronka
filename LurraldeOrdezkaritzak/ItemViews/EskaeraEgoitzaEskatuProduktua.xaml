@@ -5,16 +5,16 @@
     <VerticalStackLayout Spacing="20">
         <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start">
             <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center">
-                <Label Text="1" VerticalOptions="Center" FontSize="23" />
-                <Label Text="Bombardeen renfe" VerticalOptions="Center" FontSize="23"/>
-                <Label Text="70" VerticalOptions="Center" FontSize="23"/>
+                <Label Text="1" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
+                <Label Text="Bombardeen renfe" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
+                <Label Text="70" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
             </HorizontalStackLayout>
         </Frame>
         <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start">
             <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center">
-                <Label Text="2" VerticalOptions="Center" FontSize="23" />
-                <Label Text="Pa defenderme" VerticalOptions="Center" FontSize="23"/>
-                <Label Text="12" VerticalOptions="Center" FontSize="23"/>
+                <Label Text="2" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
+                <Label Text="Pa defenderme" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
+                <Label Text="12" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
             </HorizontalStackLayout>
         </Frame>
     </VerticalStackLayout>

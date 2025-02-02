@@ -5,18 +5,18 @@
     <VerticalStackLayout Spacing="20">
         <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start">
             <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center">
-                <Label Text="1" VerticalOptions="Center" FontSize="23" />
-                <Label Text="Martillito" VerticalOptions="Center" FontSize="23"/>
-                <Label Text="120" VerticalOptions="Center" FontSize="23"/>
-                <Label Text="2025-01-16" VerticalOptions="Center" FontSize="23"/>
+                <Label Text="1" VerticalOptions="Center" FontSize="23" TextColor="Black"/>
+                <Label Text="Martillito" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
+                <Label Text="120" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
+                <Label Text="2025-01-16" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
             </HorizontalStackLayout>
         </Frame>
         <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start">
             <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center">
-                <Label Text="2" VerticalOptions="Center" FontSize="23" />
-                <Label Text="Clavo" VerticalOptions="Center" FontSize="23"/>
-                <Label Text="122" VerticalOptions="Center" FontSize="23"/>
-                <Label Text="2024-12-29" VerticalOptions="Center" FontSize="23"/>
+                <Label Text="2" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
+                <Label Text="Clavo" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
+                <Label Text="122" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
+                <Label Text="2024-12-29" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
             </HorizontalStackLayout>
         </Frame>
     </VerticalStackLayout>

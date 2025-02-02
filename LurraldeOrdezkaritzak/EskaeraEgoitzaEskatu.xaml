@@ -32,8 +32,7 @@
                     </Frame>
                 </VerticalStackLayout>
                 <VerticalStackLayout VerticalOptions="Center">
-                    <!--En este label tiene que salir el id y el nombre del produkto que hemos elegido-->
-                    <Label Text="Id Produktua:            Izena:"  TextColor="White" FontSize="25" FontAttributes="Bold"/>
+                    <Label Text="Id Produktua:            Izena:"  TextColor="Black" FontSize="25" FontAttributes="Bold"/>
                     <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
                         Opacity="0.9" WidthRequest="700" HeightRequest="600"
                         HorizontalOptions="Center">

@@ -2,23 +2,20 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LurraldeOrdezkaritzak.ItemViews.Stock">
-    <VerticalStackLayout Spacing="20">
-            <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start">
-        <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center">
-            <Label Text="1" VerticalOptions="Center" FontSize="23" />
-            <Label Text="Martillito" VerticalOptions="Center" FontSize="23"/>
-            <Label Text="120" VerticalOptions="Center" FontSize="23"/>
-            <Label Text="Herramienta" VerticalOptions="Center" FontSize="23"/>
-        </HorizontalStackLayout>
-    </Frame> 
-    <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start">
-        <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center">
-            <Label Text="1" VerticalOptions="Center" FontSize="23" />
-            <Label Text="Martillito" VerticalOptions="Center" FontSize="23"/>
-            <Label Text="120" VerticalOptions="Center" FontSize="23"/>
-            <Label Text="Herramienta" VerticalOptions="Center" FontSize="23"/>
-        </HorizontalStackLayout>
-    </Frame>
-    </VerticalStackLayout>
 
+    <Frame BorderColor="#CCCCCC" CornerRadius="15" Padding="15" BackgroundColor="White" HeightRequest="100" VerticalOptions="Start" HasShadow="True">
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Text="{Binding Id}" Grid.Column="0" VerticalOptions="Center" FontSize="20" TextColor="Black" FontAttributes="Bold"/>
+            <Label Text="{Binding Izena}" Grid.Column="1" VerticalOptions="Center" FontSize="20" TextColor="Black"/>
+            <Label Text="{Binding Stock}" Grid.Column="2" VerticalOptions="Center" FontSize="20" TextColor="Black"/>
+            <Label Text="{Binding Kategoria}" Grid.Column="3" VerticalOptions="Center" FontSize="20" TextColor="Black"/>
+        </Grid>
+    </Frame>
 </ContentView>

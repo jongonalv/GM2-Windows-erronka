@@ -5,18 +5,18 @@
     <VerticalStackLayout Spacing="20">
         <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start">
             <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center">
-                <Label Text="1" VerticalOptions="Center" FontSize="23" />
-                <Label Text="Martillito" VerticalOptions="Center" FontSize="23"/>
-                <Label Text="120" VerticalOptions="Center" FontSize="23"/>
-                <Button HeightRequest="20" WidthRequest="100" Text="Eskatu" BackgroundColor="Black"  Clicked="OnEskatuButtonClickedAsync"/>
+                <Label Text="1" VerticalOptions="Center" FontSize="23" TextColor="Black"/>
+                <Label Text="Martillito" VerticalOptions="Center" FontSize="23" TextColor="Black"/>
+                <Label Text="120" VerticalOptions="Center" FontSize="23" TextColor="Black"/>
+                <Button HeightRequest="20" WidthRequest="100" Text="Eskatu" BackgroundColor="Black"  Clicked="OnEskatuButtonClickedAsync" TextColor="White"/>
             </HorizontalStackLayout>
         </Frame>
         <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start">
-            <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center">
-                <Label Text="3" VerticalOptions="Center" FontSize="23" />
-                <Label Text="Torloju" VerticalOptions="Center" FontSize="23"/>
-                <Label Text="12" VerticalOptions="Center" FontSize="23"/>
-                <Button HeightRequest="20" WidthRequest="100" Text="Eskatu" BackgroundColor="Black" Clicked="OnEskatuButtonClickedAsync"/>
+            <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center" >
+                <Label Text="3" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
+                <Label Text="Torloju" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
+                <Label Text="12" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
+                <Button HeightRequest="20" WidthRequest="100" Text="Eskatu" BackgroundColor="Black" Clicked="OnEskatuButtonClickedAsync"  TextColor="White"/>
             </HorizontalStackLayout>
         </Frame>
     </VerticalStackLayout>

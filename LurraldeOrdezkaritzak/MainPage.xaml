@@ -21,9 +21,9 @@
                        Opacity="0.9" WidthRequest="300" HeightRequest="300"
                        HorizontalOptions="Center">
                     <VerticalStackLayout Spacing="10">
-                        <Label Text="Erabiltzailea" />
+                        <Label Text="Erabiltzailea" TextColor="Black"/>
                         <Entry />
-                        <Label Text="Pasahitza" />
+                        <Label Text="Pasahitza" TextColor="Black"/>
                         <Entry IsPassword="True" />
                         <Button Text="Saioa hasi" BackgroundColor="DarkOrange" TextColor="White" Clicked="OnSaioaHasiClicked" />
                     </VerticalStackLayout>
