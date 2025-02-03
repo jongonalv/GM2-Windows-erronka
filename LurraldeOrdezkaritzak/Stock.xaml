@@ -36,6 +36,14 @@
                                 Opacity="0.9"
                                 WidthRequest="200"
                                 HeightRequest="40"/>
+                        <Button Text="Datuak kargatu"
+                                BackgroundColor="Green"
+                                TextColor="White"
+                                Opacity="0.9"
+                                WidthRequest="200"
+                                HeightRequest="50"
+                                x:Name="datuakKargatuButton"
+                                Clicked="datuakKargatuButton_Clicked"/>
                     </HorizontalStackLayout>
 
                     <Frame CornerRadius="15" BorderColor="#CCCCCC" Padding="20" BackgroundColor="White"

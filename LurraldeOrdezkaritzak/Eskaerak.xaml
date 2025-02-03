@@ -16,8 +16,6 @@
                         Opacity="0.9" WidthRequest="700" HeightRequest="600"
                         HorizontalOptions="Center">
                     <itemViews:Eskaerak />
-                   
-                    
                 </Frame>
             </HorizontalStackLayout>
 

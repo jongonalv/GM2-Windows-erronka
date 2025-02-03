@@ -18,7 +18,19 @@ namespace LurraldeOrdezkaritzak.ViewModels
         /// <summary>
         /// Artikuluen zerrenda gordetzen duen behagarri bilduma (ObservableCollection).
         /// </summary>
-        public ObservableCollection<Artikuloa> Artikuloak { get; } = new ObservableCollection<Artikuloa>();
+        private ObservableCollection<Artikuloa> _artikuloak = new ObservableCollection<Artikuloa>();
+        public ObservableCollection<Artikuloa> Artikuloak
+        {
+            get => _artikuloak;
+            set
+            {
+                if (_artikuloak != value)
+                {
+                    _artikuloak = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         /// <summary>
         /// Kategoriak gordetzen dituen behagarri bilduma (ObservableCollection).
@@ -30,7 +42,8 @@ namespace LurraldeOrdezkaritzak.ViewModels
         /// </summary>
         private string _selectedKategoria;
         private string _searchText;
-        private List<Artikuloa> _allArtikuloak = new List<Artikuloa>();
+        private ObservableCollection<Artikuloa> _allArtikuloak = new ObservableCollection<Artikuloa>();
+
         public string SearchText
         {
             get => _searchText;
@@ -51,11 +64,18 @@ namespace LurraldeOrdezkaritzak.ViewModels
         {
             Artikuloak.Clear();
 
-            var artikuloak = string.IsNullOrEmpty(SearchText)
-                ? _allArtikuloak  // Artikulu guztiak kargatu
-                : _allArtikuloak.Where(a => a.Izena.Contains(SearchText, StringComparison.OrdinalIgnoreCase)).ToList();
+            var filteredArtikuloak = string.IsNullOrEmpty(SelectedKategoria)
+                ? _allArtikuloak.ToList()
+                : _allArtikuloak.Where(a => a.Kategoria == SelectedKategoria).ToList();
 
-            foreach (var artikulo in artikuloak)
+            if (!string.IsNullOrEmpty(SearchText))
+            {
+                filteredArtikuloak = filteredArtikuloak
+                    .Where(a => a.Izena.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+
+            foreach (var artikulo in filteredArtikuloak)
             {
                 Artikuloak.Add(artikulo);
             }
@@ -70,7 +90,7 @@ namespace LurraldeOrdezkaritzak.ViewModels
                 {
                     _selectedKategoria = value;
                     OnPropertyChanged();
-                    LoadArtikuloakByKategoria(_selectedKategoria);
+                    FilterArtikuloak();
                 }
             }
         }
@@ -95,7 +115,6 @@ namespace LurraldeOrdezkaritzak.ViewModels
             LoadKategoriakCommand = new Command(async () => await LoadKategoriak());
             LoadArtikuloakCommand = new Command(async () => await LoadAllArtikuloak());
 
-            // Artikulu guztiak lehenetsita kargatzen ditu
             Task.Run(async () => await LoadAllArtikuloak());
         }
 
@@ -115,40 +134,17 @@ namespace LurraldeOrdezkaritzak.ViewModels
         /// <summary>
         /// Datu-baseko artikulu guztiak kargatzen ditu eta Artikuloak bilduman gordetzen ditu.
         /// </summary>
-        private async Task LoadAllArtikuloak()
+        public async Task LoadAllArtikuloak()
         {
-            Artikuloak.Clear();
-            _allArtikuloak.Clear();
-
             var artikuloak = await _dbManager.GetArtikuloakAsync();
-            _allArtikuloak.AddRange(artikuloak);
 
+            _allArtikuloak.Clear();
             foreach (var artikulo in artikuloak)
             {
-                Artikuloak.Add(artikulo);
-            }
-        }
-
-
-        /// <summary>
-        /// Hautatutako kategoriaren arabera artikuluak kargatzen ditu. 
-        /// Kategoria hutsik badago, artikulu guztiak kargatzen dira.
-        /// </summary>
-        /// <param name="kategoria">Kategoria hautatua.</param>
-        private async Task LoadArtikuloakByKategoria(string kategoria)
-        {
-            if (string.IsNullOrEmpty(kategoria))
-            {
-                await LoadAllArtikuloak();
-                return;
+                _allArtikuloak.Add(artikulo);
             }
 
-            Artikuloak.Clear();
-            var filteredArtikuloak = await _dbManager.GetArtikuloakByKategoriaAsync(kategoria);
-            foreach (var artikulo in filteredArtikuloak)
-            {
-                Artikuloak.Add(artikulo);
-            }
+            FilterArtikuloak();
         }
     }
 }

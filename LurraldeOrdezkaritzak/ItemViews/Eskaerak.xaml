@@ -2,18 +2,21 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LurraldeOrdezkaritzak.ItemViews.Eskaerak">
-    <VerticalStackLayout>
-        <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="120" VerticalOptions="Start">
-            <VerticalStackLayout   HorizontalOptions="Center">
-                <HorizontalStackLayout Spacing="100" HeightRequest="60">
-                    <Label Text="1" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-                    <Label Text="Un fokin martillo" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-                    <Button Text="Ikusi" HeightRequest="20" WidthRequest="120" BackgroundColor="Black" Clicked="Ikusi_clicked"  TextColor="white"/>
-                </HorizontalStackLayout>
-                <HorizontalStackLayout Spacing="300">
-                    <Label Text="Hegoitxi" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-                    <Label Text="2025-01-30" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-                </HorizontalStackLayout>
+    <VerticalStackLayout Padding="10">
+        <Frame BorderColor="Black" CornerRadius="20" Padding="10" BackgroundColor="White" HeightRequest="130" VerticalOptions="Start">
+            <VerticalStackLayout HorizontalOptions="Fill" Spacing="5">
+
+                <Grid ColumnDefinitions="50, *, Auto" Padding="10">
+                    <Label Text="1" VerticalOptions="Center" FontSize="23" TextColor="Black" Grid.Column="0"/>
+                    <Label Text="Un fokin martillo" VerticalOptions="Center" FontSize="23" TextColor="Black" Grid.Column="1"/>
+                    <Button Text="Ikusi" HeightRequest="35" WidthRequest="100" BackgroundColor="Black" TextColor="White" Clicked="Ikusi_clicked" Grid.Column="2"/>
+                </Grid>
+¡
+                <Grid ColumnDefinitions="*, Auto" Padding="10">
+                    <Label Text="Hegoitxi" VerticalOptions="Center" FontSize="20" TextColor="Black" Grid.Column="0"/>
+                    <Label Text="2025-01-30" VerticalOptions="Center" FontSize="20" TextColor="Black" Grid.Column="1"/>
+                </Grid>
+
             </VerticalStackLayout>
         </Frame>
     </VerticalStackLayout>

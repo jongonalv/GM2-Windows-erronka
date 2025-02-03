@@ -1,24 +1,31 @@
 ﻿using System;
+using System.Xml.Serialization;
 using SQLite;
 
 namespace lurraldeOrdezkaritzak
 {
-    [SQLite.Table("Artikuloa")]
+    [Table("Artikuloa")]
+    [XmlRoot("Artikuloa")]
     public class Artikuloa
     {
-        [PrimaryKey, AutoIncrement, SQLite.Column("id")]
+        [PrimaryKey, AutoIncrement, Column("id")]
+        [XmlIgnore]
         public int Id { get; set; }
 
-        [SQLite.Column("izena")]
+        [Column("izena")]
+        [XmlElement("izena")]
         public string Izena { get; set; }
 
-        [SQLite.Column("kategoria")]
+        [Column("kategoria")]
+        [XmlElement("kategoria")]
         public string Kategoria { get; set; }
 
-        [SQLite.Column("prezioa")]
+        [Column("prezioa")]
+        [XmlElement("prezioa")]
         public double Prezioa { get; set; }
 
-        [SQLite.Column("stock")]
+        [Column("stock")]
+        [XmlElement("stock")]
         public int Stock { get; set; }
 
         public Artikuloa() { }

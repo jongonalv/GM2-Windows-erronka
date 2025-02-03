@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Artikuloak>
+	<Artikuloa>
+		<izena>Tornillo</izena>
+		<kategoria>Burdindegia</kategoria>
+		<prezioa>0.10</prezioa>
+		<stock>700</stock>
+	</Artikuloa>
+	<Artikuloa>
+		<izena>Clavo</izena>
+		<kategoria>Burdindegia</kategoria>
+		<prezioa>0.05</prezioa>
+		<stock>1300</stock>
+	</Artikuloa>
+	<Artikuloa>
+		<izena>Bisagra</izena>
+		<kategoria>Burdindegia</kategoria>
+		<prezioa>2.50</prezioa>
+		<stock>100</stock>
+	</Artikuloa>
+	<Artikuloa>
+		<izena>Llave Inglesa</izena>
+		<kategoria>Eskuzko Tresnak</kategoria>
+		<prezioa>15.99</prezioa>
+		<stock>20</stock>
+	</Artikuloa>
+	<Artikuloa>
+		<izena>Destornillador</izena>
+		<kategoria>Eskuzko Tresnak</kategoria>
+		<prezioa>7.99</prezioa>
+		<stock>50</stock>
+	</Artikuloa>
+	<Artikuloa>
+		<izena>Martillo</izena>
+		<kategoria>Eskuzko Tresnak</kategoria>
+		<prezioa>12.99</prezioa>
+		<stock>30</stock>
+	</Artikuloa>
+	<Artikuloa>
+		<izena>Taladro</izena>
+		<kategoria>Tresna Elektrikoak</kategoria>
+		<prezioa>89.99</prezioa>
+		<stock>15</stock>
+	</Artikuloa>
+	<Artikuloa>
+		<izena>Sierra Circular</izena>
+		<kategoria>Tresna Elektrikoak</kategoria>
+		<prezioa>149.99</prezioa>
+		<stock>10</stock>
+	</Artikuloa>
+	<Artikuloa>
+		<izena>Lijadora</izena>
+		<kategoria>Tresna Elektrikoak</kategoria>
+		<prezioa>59.99</prezioa>
+		<stock>25</stock>
+	</Artikuloa>
+	<Artikuloa>
+		<izena>Compresor de Aire</izena>
+		<kategoria>Tresna Elektrikoak</kategoria>
+		<prezioa>199.99</prezioa>
+		<stock>5</stock>
+	</Artikuloa>
+	<Artikuloa>
+		<izena>Cinta Métrica</izena>
+		<kategoria>Eskuzko Tresnak</kategoria>
+		<prezioa>4.99</prezioa>
+		<stock>40</stock>
+	</Artikuloa>
+	<Artikuloa>
+		<izena>Soldador Eléctrico</izena>
+		<kategoria>Tresna Elektrikoak</kategoria>
+		<prezioa>79.99</prezioa>
+		<stock>12</stock>
+	</Artikuloa>
+</Artikuloak>
+

@@ -1,6 +1,7 @@
 ﻿using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -9,10 +10,13 @@ namespace lurraldeOrdezkaritzak
     public class DBManager
     {
         private readonly SQLiteAsyncConnection _database;
+        private readonly XmlManager _xmlManager;
+
 
         public DBManager(string dbPath)
         {
             _database = new SQLiteAsyncConnection(dbPath);
+            _xmlManager = new XmlManager();
             InitializeDatabase();
         }
 
@@ -24,7 +28,6 @@ namespace lurraldeOrdezkaritzak
                 await _database.CreateTableAsync<Bazkidea>();
                 await _database.CreateTableAsync<Eskaera>();
                 await _database.CreateTableAsync<EskaeraArtikuloa>();
-                await GenerateSampleArtikuloak();
             }
             catch (Exception ex)
             {
@@ -124,28 +127,64 @@ namespace lurraldeOrdezkaritzak
                 .ToListAsync();
         }
 
-
-        public async Task GenerateSampleArtikuloak()
+        /// <summary>
+        ///    Egoitza nagusitik artikulo berriak badatozte eguneratzeko metodoa
+        /// </summary>
+        /// <returns></returns>
+        public async Task XMLArtikuloakKargatu()
         {
-            var count = await _database.Table<Artikuloa>().CountAsync();
-            if (count > 0) return;
+            var customFileType = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
+    {
+        { DevicePlatform.Android, new[] { "application/xml", "text/xml" } },
+        { DevicePlatform.iOS, new[] { "public.xml" } },
+        { DevicePlatform.WinUI, new[] { ".xml" } }
+    });
 
-            var sampleArtikuloak = new List<Artikuloa>
+            var pickResult = await FilePicker.PickAsync(new PickOptions
+            {
+                FileTypes = customFileType,
+                PickerTitle = "Selecciona un archivo XML"
+            });
+
+            if (pickResult == null)
+            {
+                Debug.WriteLine("No se seleccionó ningún archivo.");
+                return;
+            }
+
+            string filePath = pickResult.FullPath;
+
+            // Cargar los artículos desde el archivo XML seleccionado
+            var xmlArtikuloak = _xmlManager.LoadArtikuloakFromXml(filePath);
+
+            if (xmlArtikuloak.Count == 0)
+            {
+                Debug.WriteLine("No se encontraron artículos en el archivo XML.");
+                return;
+            }
+
+            // Obtener los artículos existentes en la base de datos
+            var existingArtikuloak = await _database.Table<Artikuloa>().ToListAsync();
+            var existingArtikuloakDict = existingArtikuloak.ToDictionary(a => (a.Izena, a.Kategoria));
+
+            foreach (var xmlArtikuloa in xmlArtikuloak)
+            {
+                if (existingArtikuloakDict.TryGetValue((xmlArtikuloa.Izena, xmlArtikuloa.Kategoria), out var existingArtikuloa))
                 {
-                    new Artikuloa("Tornillo", "Burdindegia", 0.10, 500),
-                    new Artikuloa("Clavo", "Burdindegia", 0.05, 1000),
-                    new Artikuloa("Bisagra", "Burdindegia", 2.50, 100),
-                    new Artikuloa("Llave Inglesa", "Eskuzko Tresnak", 15.99, 20),
-                    new Artikuloa("Destornillador", "Eskuzko Tresnak", 7.99, 50),
-                    new Artikuloa("Martillo", "Eskuzko Tresnak", 12.99, 30),
-                    new Artikuloa("Taladro", "Tresna Elektrikoak", 89.99, 15),
-                    new Artikuloa("Sierra Circular", "Tresna Elektrikoak", 149.99, 10),
-                    new Artikuloa("Lijadora", "Tresna Elektrikoak", 59.99, 25),
-                    new Artikuloa("Compresor de Aire", "Tresna Elektrikoak", 199.99, 5)
-                };
-
-            await _database.InsertAllAsync(sampleArtikuloak);
+                    // Actualizar solo si hay cambios
+                    if (existingArtikuloa.Prezioa != xmlArtikuloa.Prezioa || existingArtikuloa.Stock != xmlArtikuloa.Stock)
+                    {
+                        existingArtikuloa.Prezioa = xmlArtikuloa.Prezioa;
+                        existingArtikuloa.Stock = xmlArtikuloa.Stock;
+                        await _database.UpdateAsync(existingArtikuloa);
+                    }
+                }
+                else
+                {
+                    // Insertar si no existe
+                    await _database.InsertAsync(xmlArtikuloa);
+                }
+            }
         }
-
     }
 }
