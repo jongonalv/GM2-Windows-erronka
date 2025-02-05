@@ -7,14 +7,14 @@
             <VerticalStackLayout HorizontalOptions="Fill" Spacing="5">
 
                 <Grid ColumnDefinitions="50, *, Auto" Padding="10">
-                    <Label Text="1" VerticalOptions="Center" FontSize="23" TextColor="Black" Grid.Column="0"/>
-                    <Label Text="Un fokin martillo" VerticalOptions="Center" FontSize="23" TextColor="Black" Grid.Column="1"/>
+                    <Label Text="{Binding Id}" VerticalOptions="Center" FontSize="23" TextColor="Black" Grid.Column="0"/>
+                    <Label Text="{Binding Kontzeptua}" VerticalOptions="Center" FontSize="23" TextColor="Black" Grid.Column="1"/>
                     <Button Text="Ikusi" HeightRequest="35" WidthRequest="100" BackgroundColor="Black" TextColor="White" Clicked="Ikusi_clicked" Grid.Column="2"/>
                 </Grid>
-¡
+
                 <Grid ColumnDefinitions="*, Auto" Padding="10">
-                    <Label Text="Hegoitxi" VerticalOptions="Center" FontSize="20" TextColor="Black" Grid.Column="0"/>
-                    <Label Text="2025-01-30" VerticalOptions="Center" FontSize="20" TextColor="Black" Grid.Column="1"/>
+                    <Label Text="{Binding Izena}" VerticalOptions="Center" FontSize="20" TextColor="Black" Grid.Column="0"/>
+                    <Label Text="{Binding EskaeraData}" VerticalOptions="Center" FontSize="20" TextColor="Black" Grid.Column="1"/>
                 </Grid>
 
             </VerticalStackLayout>

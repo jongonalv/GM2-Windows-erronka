@@ -28,6 +28,9 @@ namespace lurraldeOrdezkaritzak
         [XmlElement("stock")]
         public int Stock { get; set; }
 
+        [Ignore]
+        public int Kantitatea { get; set; }
+
         public Artikuloa() { }
 
         public Artikuloa(string izena, string kategoria, double prezioa, int stock)

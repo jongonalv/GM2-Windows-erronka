@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using Ikaslea.KomertzialakApp.Models.Enums;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +12,19 @@ namespace lurraldeOrdezkaritzak
     {
         private readonly SQLiteAsyncConnection _database;
         private readonly XmlManager _xmlManager;
+        private static DBManager _instance;
 
+        public static DBManager GetInstance
+        {
+            get
+            {             
+                if (_instance == null)
+                    {
+                    _instance = new DBManager(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "lurraldeOrdezkaritzak.db3"));
+                    }
+                return _instance;
+            }
+        }
 
         public DBManager(string dbPath)
         {
@@ -128,42 +141,122 @@ namespace lurraldeOrdezkaritzak
         }
 
         /// <summary>
+        ///     Bazkide bat lortzeko bere ID-a pasata
+        /// </summary>
+        /// <param name="bazkideaId"></param>
+        /// <returns></returns>
+        public Task<Bazkidea> GetBazkideaByIdAsync(int bazkideaId)
+        {
+            return _database.FindAsync<Bazkidea>(bazkideaId);
+        }
+
+        public async Task<List<Artikuloa>> GetArtikuloakByEskaeraIdAsync(int eskaeraId)
+        {
+            var artikuloak = await _database.QueryAsync<Artikuloa>(
+                @"SELECT a.Id, a.Izena, a.Stock, a.Prezioa, ea.kantitatea 
+          FROM Artikuloa a
+          INNER JOIN EskaeraArtikuloa ea ON a.Id = ea.artikuloa_id
+          WHERE ea.eskaera_id = ?", eskaeraId);
+
+            foreach (var artikulo in artikuloak)
+            {
+                artikulo.Kantitatea = await _database.ExecuteScalarAsync<int>(
+                    "SELECT kantitatea FROM EskaeraArtikuloa WHERE artikuloa_id = ? AND eskaera_id = ?",
+                    artikulo.Id, eskaeraId);
+            }
+
+            return artikuloak;
+        }
+
+
+
+
+        /// <summary>
+        /// Eskaerak lortzeko metodoa artikuloaren arabera
+        /// </summary>
+        /// <param name="artikuloaId"></param>
+        /// <returns></returns>
+        public async Task<List<Eskaera>> GetEskaerakByArtikuloaAsync(int artikuloaId)
+        {
+            string query = @"
+                            SELECT E.* 
+                            FROM Eskaera E
+                            INNER JOIN EskaeraArtikuloa EA ON E.Id = EA.eskaera_id
+                            WHERE EA.artikuloa_id = ?";
+
+            var eskaerak = await _database.QueryAsync<Eskaera>(query, artikuloaId);
+
+            foreach (var eskaera in eskaerak)
+            {
+                eskaera.EskaeraArtikuloak = await _database.Table<EskaeraArtikuloa>()
+                    .Where(ea => ea.EskaeraId == eskaera.Id)
+                    .ToListAsync();
+            }
+
+            return eskaerak;
+        }
+
+        /// <summary>
+        ///     metodo tenporala bazkideak sartzeko
+        /// </summary>
+        public void InsertBazkideak()
+        {
+            using (var db = new SQLiteConnection(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "lurraldeOrdezkaritzak.db3")))
+            {
+                db.CreateTable<Bazkidea>(); // Asegurar que la tabla existe
+
+                List<Bazkidea> bazkideak = new List<Bazkidea>
+                {
+                    new Bazkidea { Id = 8, Izena = "Francisco Franco Bahamonde", Email = "jon.goni@example.com", Telefonoa = "123456789", Helbidea = "Kalea 1, Donostia", BazkideMota = "Premium", KomerzialaId = 1 },
+                    new Bazkidea { Id = 6, Izena = "Ane Lasa", Email = "ane.lasa@example.com", Telefonoa = "987654321", Helbidea = "Kalea 2, Bilbo", BazkideMota = "Estandar", KomerzialaId = 2 },
+                    new Bazkidea { Id = 4, Izena = "Mikel Etxeberria", Email = "mikel.etxeberria@example.com", Telefonoa = "654321987", Helbidea = "Kalea 3, Gasteiz", BazkideMota = "Estandar", KomerzialaId = 3 },
+                    new Bazkidea { Id = 7, Izena = "Maite Arrieta", Email = "maite.arrieta@example.com", Telefonoa = "321987654", Helbidea = "Kalea 4, Iruñea", BazkideMota = "Premium", KomerzialaId = 4 },
+                    new Bazkidea { Id = 5, Izena = "Ander Olaizola", Email = "ander.olaizola@example.com", Telefonoa = "159753468", Helbidea = "Kalea 5, Baiona", BazkideMota = "Estandar", KomerzialaId = 5 }
+                };
+
+                foreach (var bazkidea in bazkideak)
+                {
+                    db.InsertOrReplace(bazkidea);
+                }
+            }
+        }
+
+        /// <summary>
         ///    Egoitza nagusitik artikulo berriak badatozte eguneratzeko metodoa
         /// </summary>
         /// <returns></returns>
         public async Task XMLArtikuloakKargatu()
         {
-            var customFileType = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
-    {
-        { DevicePlatform.Android, new[] { "application/xml", "text/xml" } },
-        { DevicePlatform.iOS, new[] { "public.xml" } },
-        { DevicePlatform.WinUI, new[] { ".xml" } }
-    });
+            var xmlFileType = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
+            {
+                { DevicePlatform.WinUI, new[] { ".xml" } }
+            });
 
             var pickResult = await FilePicker.PickAsync(new PickOptions
             {
-                FileTypes = customFileType,
-                PickerTitle = "Selecciona un archivo XML"
+                FileTypes = xmlFileType,
+                PickerTitle = "XML Fitxategi bat aukeratu mesedez."
             });
 
             if (pickResult == null)
             {
-                Debug.WriteLine("No se seleccionó ningún archivo.");
+                Debug.WriteLine("Ez da aukeratu fitxategirik");
                 return;
             }
 
-            string filePath = pickResult.FullPath;
+            string fitxHelbidea = pickResult.FullPath;
 
-            // Cargar los artículos desde el archivo XML seleccionado
-            var xmlArtikuloak = _xmlManager.LoadArtikuloakFromXml(filePath);
+            // XML Artikuloak kargatu aukeratutako fitxategitik
+            var xmlArtikuloak = _xmlManager.LoadArtikuloakFromXml(fitxHelbidea);
 
+            // Ez badira aurkitu Artikulorik, debug ipini (DISPLAY ALERT ALDATU!!!!!!!!!)
             if (xmlArtikuloak.Count == 0)
             {
-                Debug.WriteLine("No se encontraron artículos en el archivo XML.");
+                Debug.WriteLine("Ez dira aurkitu daturik XML fitxategian");
                 return;
             }
 
-            // Obtener los artículos existentes en la base de datos
+            // Datu basetik existitzen diren artikulo guztiak lortu
             var existingArtikuloak = await _database.Table<Artikuloa>().ToListAsync();
             var existingArtikuloakDict = existingArtikuloak.ToDictionary(a => (a.Izena, a.Kategoria));
 
@@ -171,7 +264,7 @@ namespace lurraldeOrdezkaritzak
             {
                 if (existingArtikuloakDict.TryGetValue((xmlArtikuloa.Izena, xmlArtikuloa.Kategoria), out var existingArtikuloa))
                 {
-                    // Actualizar solo si hay cambios
+                    // Eguneratu aldaketarik bakarrik badaude
                     if (existingArtikuloa.Prezioa != xmlArtikuloa.Prezioa || existingArtikuloa.Stock != xmlArtikuloa.Stock)
                     {
                         existingArtikuloa.Prezioa = xmlArtikuloa.Prezioa;
@@ -181,7 +274,6 @@ namespace lurraldeOrdezkaritzak
                 }
                 else
                 {
-                    // Insertar si no existe
                     await _database.InsertAsync(xmlArtikuloa);
                 }
             }

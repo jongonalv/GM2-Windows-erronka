@@ -4,7 +4,7 @@
              xmlns:itemViews="clr-namespace:LurraldeOrdezkaritzak.ItemViews"
              x:Class="LurraldeOrdezkaritzak.EskaerakIkusi"
              Title="EskaerakIkusi">
-    
+
     <Grid>
         <Image Source="fondobidalketak.jpg" Aspect="AspectFill"
             VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  />
@@ -13,29 +13,56 @@
 
             <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="20">
                 <HorizontalStackLayout  Spacing="150">
-                    <VerticalStackLayout>
-                        
-                        <!--En este label tiene que salir el id eskaera que hemos elegido-->
-                        <Label Text="Id Eskaera:"  TextColor="White" FontSize="25" FontAttributes="Bold"/>
-                        
-                        <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
-                            Opacity="0.9" WidthRequest="600" HeightRequest="650" >
 
-                        </Frame>
-                        
-                    </VerticalStackLayout>
-                    
+                    <!-- Eskaeraren datuak azaltzeko kuadroa-->
+                    <Frame BorderColor="Gray" BackgroundColor="White" CornerRadius="10" Padding="25" Margin="0,0,0,30"
+                                HasShadow="True" WidthRequest="620" HeightRequest="450">
+                        <VerticalStackLayout Spacing="20">
 
+                            <!-- Datuak-->
+                            <Label Text="Eskaeraren Datuak" TextColor="DarkSlateGray" FontSize="26" FontAttributes="Bold"
+                                        HorizontalOptions="Center" Padding="0,0,0,10"/>
+                            <Grid ColumnDefinitions="220, Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="12">
+                                <Label Text="Eskaera ID:" FontAttributes="Bold" FontSize="18" TextColor="DarkSlateGray"/>
+                                <Label Text="{Binding Id}" TextColor="Black" FontSize="18" Grid.Column="1"/>
+
+                                <Label Text="Eskaera Data:" FontAttributes="Bold" FontSize="18" TextColor="DarkSlateGray" Grid.Row="1"/>
+                                <Label Text="{Binding EskaeraData}" TextColor="Black" FontSize="18" Grid.Column="1" Grid.Row="1"/>
+
+                                <Label Text="Bezeroa:" FontAttributes="Bold" FontSize="18" TextColor="DarkSlateGray" Grid.Row="2"/>
+                                <Label Text="{Binding Izena}" TextColor="Black" FontSize="18" Grid.Column="1" Grid.Row="2"/>
+
+                                <Label Text="Kontzeptua:" FontAttributes="Bold" FontSize="18" TextColor="DarkSlateGray" Grid.Row="3"/>
+                                <Label Text="{Binding Kontzeptua}" TextColor="Black" FontSize="18" Grid.Column="1" Grid.Row="3"/>
+
+                                <Label Text="Egoera:" FontAttributes="Bold" FontSize="18" TextColor="DarkSlateGray" Grid.Row="4"/>
+                                <Label Text="{Binding Egoera}" TextColor="Black" FontSize="18" Grid.Column="1" Grid.Row="4"/>
+                            </Grid>
+
+                            <!-- Prezio guztira-->
+                            <HorizontalStackLayout Spacing="5" Margin="0,60,20,0">
+                                <Label Text="Guztira:" FontAttributes="Bold" FontSize="20" TextColor="DarkSlateGray" HorizontalOptions="Center"/>
+                                <Label Text="{Binding Guztira, StringFormat='{0:C}'}" FontSize="26" TextColor="Green" Margin="20, 0, 0, 0"
+                                            FontAttributes="Bold" HorizontalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Frame>
+
+                    <!-- Eskaeraren produktuak eta beharko diren produktuak eskaera osatzeko-->
                     <VerticalStackLayout VerticalOptions="Center" HeightRequest="700">
                         <Label  Text="Produktuen lista:" TextColor="White" FontSize="25" FontAttributes="Bold"/>
-                        
+
                         <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
                              Opacity="0.9" WidthRequest="600" HeightRequest="250">
-                            <ScrollView>
-                                <itemViews:EskaerakIkusiProduktuak />
-                            </ScrollView>
+                            <CollectionView ItemsSource="{Binding Artikuloak}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <itemViews:EskaerakIkusiProduktuak/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
                         </Frame>
-                        
+
                         <Label  Text="Falta diren produktuen lista:" TextColor="White" FontSize="25" FontAttributes="Bold" Margin="0,40,0,0"/>
                         <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
                           Opacity="0.9" WidthRequest="600" HeightRequest="250">
@@ -50,16 +77,12 @@
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
                 </HorizontalStackLayout>
-                
+
                 <HorizontalStackLayout>
                     <Button Text="Atzera" BackgroundColor="LightGray" TextColor="Black" Clicked="Atzera_Clicked"/>
                 </HorizontalStackLayout>
-                
-               
-            </VerticalStackLayout>
-            
-            
 
+            </VerticalStackLayout>
         </ScrollView>
     </Grid>
 </ContentPage>

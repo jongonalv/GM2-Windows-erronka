@@ -3,12 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LurraldeOrdezkaritzak.ItemViews.StockProduktuak">
 
-    <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start">
-        <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center">
-            <Label Text="1" VerticalOptions="Center" FontSize="23" TextColor="Black"/>
-            <Label Text="Hegoi ha roto el fokin pakete" VerticalOptions="Center" FontSize="23" TextColor="Black"/>
-            <Label Text="12" VerticalOptions="Center" FontSize="23" TextColor="Black"/>
-        </HorizontalStackLayout>
-    </Frame>
+    <Frame BorderColor="Black" CornerRadius="15" Padding="15" HeightRequest="80" VerticalOptions="Start" HasShadow="True" Margin="4" Opacity="0.9">
+        <Frame.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#666666" Offset="0.1"/>
+                <GradientStop Color="#333333" Offset="0.9"/>
+            </LinearGradientBrush>
+        </Frame.Background>
 
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Text="{Binding Id}" Grid.Column="0" VerticalOptions="Center" FontSize="20" TextColor="White" FontAttributes="Bold" FontFamily="OpenSansSemibold"/>
+            <Label Text="{Binding Kontzeptua}" Grid.Column="1" VerticalOptions="Center" FontSize="20" TextColor="White" FontFamily="OpenSansRegular"/>
+            <Label Text="{Binding KantitateTotala}" Grid.Column="2" VerticalOptions="Center" FontSize="20" TextColor="White" FontFamily="OpenSansRegular"/>
+        </Grid>
+    </Frame>
 </ContentView>

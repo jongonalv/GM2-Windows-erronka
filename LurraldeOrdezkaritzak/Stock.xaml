@@ -4,11 +4,62 @@
              xmlns:itemViews="clr-namespace:LurraldeOrdezkaritzak.ItemViews"
              x:Class="LurraldeOrdezkaritzak.Stock"
              Title="Stock"
-             BackgroundColor="#F0F0F0">
+             BackgroundColor="#1E1E1E">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseEntryStyle" TargetType="Entry">
+                <Setter Property="PlaceholderColor" Value="#A0A0A0" />
+                <Setter Property="BackgroundColor" Value="#333333" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="Opacity" Value="0.9" />
+                <Setter Property="WidthRequest" Value="200" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+
+            <Style x:Key="BasePickerStyle" TargetType="Picker">
+                <Setter Property="BackgroundColor" Value="#333333" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="Opacity" Value="0.9" />
+                <Setter Property="WidthRequest" Value="200" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+
+            <Style x:Key="BaseButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#4CAF50" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="Opacity" Value="0.9" />
+                <Setter Property="WidthRequest" Value="200" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="CornerRadius" Value="10" />
+            </Style>
+
+            <Style x:Key="BaseFrameStyle" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="15" />
+                <Setter Property="BorderColor" Value="#444444" />
+                <Setter Property="Padding" Value="20" />
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="Opacity" Value="0.9" />
+                <Setter Property="HasShadow" Value="True" />
+            </Style>
+
+            <Style x:Key="BaseLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <Grid>
         <Image Source="fondo.jpg" Aspect="AspectFill"
-               VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+               VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+               Opacity="0.7" />
 
         <ScrollView>
             <Grid HorizontalOptions="Center" VerticalOptions="Center" Padding="20">
@@ -18,56 +69,85 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Zutabe 1: Filtroak eta artikulo zerrenda -->
-                <VerticalStackLayout Grid.Column="0" Spacing="20" HorizontalOptions="Center">
+                <VerticalStackLayout Grid.Column="0" Spacing="8" HorizontalOptions="Center">
                     <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
                         <Entry Placeholder="Bilatu izenaren arabera..."
-                               PlaceholderColor="Gray"
-                               BackgroundColor="black"
-                               TextColor="White"
-                               Opacity="0.9"
-                               WidthRequest="150"
-                               HeightRequest="40"
-                               Text="{Binding SearchText, Mode=TwoWay}"/>
+                               Style="{StaticResource BaseEntryStyle}"
+                               Text="{Binding SearchText, Mode=TwoWay}" />
 
                         <Picker ItemsSource="{Binding Kategoriak}"
                                 SelectedItem="{Binding SelectedKategoria, Mode=TwoWay}"
-                                BackgroundColor="Black"
-                                TextColor="White"
-                                Opacity="0.9"
-                                WidthRequest="200"
-                                HeightRequest="40"/>
+                                Style="{StaticResource BasePickerStyle}" />
+
                         <Button Text="Datuak kargatu"
-                                BackgroundColor="Green"
-                                TextColor="White"
-                                Opacity="0.9"
-                                WidthRequest="200"
-                                HeightRequest="50"
+                                Style="{StaticResource BaseButtonStyle}"
                                 x:Name="datuakKargatuButton"
-                                Clicked="datuakKargatuButton_Clicked"/>
+                                Clicked="datuakKargatuButton_Clicked" />
                     </HorizontalStackLayout>
 
-                    <Frame CornerRadius="15" BorderColor="#CCCCCC" Padding="20" BackgroundColor="White"
-                           Opacity="0.9" WidthRequest="700" HeightRequest="600"
-                           HorizontalOptions="Center">
-                        <CollectionView ItemsSource="{Binding Artikuloak}">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <itemViews:Stock />
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
+                    <Frame Style="{StaticResource BaseFrameStyle}" WidthRequest="700" HeightRequest="600">
+                        <ScrollView>
+                            <VerticalStackLayout Spacing="10">
+                                <Frame CornerRadius="10" BorderColor="#444444" Padding="10" BackgroundColor="#333333"
+                                       Opacity="1" HasShadow="True">
+                                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="60" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="50" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Text="ID" Grid.Column="0" Style="{StaticResource BaseLabelStyle}" />
+                                        <Label Text="Produktua" Grid.Column="1" Style="{StaticResource BaseLabelStyle}" />
+                                        <Label Text="Stock" Grid.Column="2" Style="{StaticResource BaseLabelStyle}" />
+                                        <Label Text="Kategoria" Grid.Column="3" Style="{StaticResource BaseLabelStyle}" />
+                                    </Grid>
+                                </Frame>
+
+                                <CollectionView ItemsSource="{Binding Artikuloak}" SelectionMode="Single"
+                                                SelectedItem="{Binding SelectedArtikuloa, Mode=TwoWay}">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <itemViews:Stock/>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </VerticalStackLayout>
+                        </ScrollView>
                     </Frame>
                 </VerticalStackLayout>
 
                 <!-- Zutabe 2: Eskaerak -->
                 <VerticalStackLayout Grid.Column="1" Spacing="20" HorizontalOptions="Center">
-                    <Label Text="Id Produktua:            Izena:" TextColor="White" FontSize="25" FontAttributes="Bold" />
-                    <Frame CornerRadius="15" BorderColor="#CCCCCC" Padding="20" BackgroundColor="White"
-                           Opacity="0.9" WidthRequest="700" HeightRequest="600"
-                           HorizontalOptions="Center">
-                        <ScrollView>
-                            <itemViews:StockProduktuak />
-                        </ScrollView>
+                    <Label Text="{Binding SelectedArtikuloIzena, StringFormat='Id: {0}    Produktua: {1}'}"
+                           TextColor="White" FontSize="25" FontAttributes="Bold"
+                           HorizontalOptions="Center" />
+
+                    <Frame Style="{StaticResource BaseFrameStyle}" WidthRequest="700" HeightRequest="600">
+                        <VerticalStackLayout>
+                            <Frame CornerRadius="10" BorderColor="#444444" Padding="10" BackgroundColor="#333333"
+                                   Opacity="1" HasShadow="True" Margin="0, 0, 0, 10">
+                                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Text="Eskaera ID" Grid.Column="0" Style="{StaticResource BaseLabelStyle}" />
+                                    <Label Text="Kontzeptua" Grid.Column="1" Style="{StaticResource BaseLabelStyle}" />
+                                    <Label Text="Kantitatea" Grid.Column="2" Style="{StaticResource BaseLabelStyle}" />
+                                </Grid>
+                            </Frame>
+                            <CollectionView ItemsSource="{Binding Eskaerak}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <itemViews:StockProduktuak/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
                     </Frame>
                 </VerticalStackLayout>
             </Grid>

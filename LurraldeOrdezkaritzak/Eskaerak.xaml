@@ -10,15 +10,20 @@
 
         <ScrollView>
             <HorizontalStackLayout HorizontalOptions="Center">
-                
-                
                 <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
                         Opacity="0.9" WidthRequest="700" HeightRequest="600"
                         HorizontalOptions="Center">
-                    <itemViews:Eskaerak />
+
+                    <CollectionView ItemsSource="{Binding Eskaerak}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <itemViews:Eskaerak />
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
                 </Frame>
             </HorizontalStackLayout>
-
         </ScrollView>
     </Grid>
 </ContentPage>

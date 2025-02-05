@@ -25,7 +25,7 @@ namespace LurraldeOrdezkaritzak
         private async void datuakKargatuButton_Clicked(object sender, EventArgs e)
         {
             await _dbmanager.XMLArtikuloakKargatu();
-            _viewModel.LoadAllArtikuloak();
+            await _viewModel.LoadAllArtikuloak();
         }
     }
 }
