@@ -10,6 +10,8 @@
             VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  />
 
         <ScrollView>
+            
+            <!-- PREGUNTAR A IMANOL SI ESTA BIEN MASOMENOS LO QUE ESTAMOS HACIENDO Y EL CAMPO DE BIDALKETA KODEA-->
 
             <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="20">
                 <HorizontalStackLayout  Spacing="150">
@@ -32,7 +34,7 @@
                                 <Label Text="Bezeroa:" FontAttributes="Bold" FontSize="18" TextColor="DarkSlateGray" Grid.Row="2"/>
                                 <Label Text="{Binding Izena}" TextColor="Black" FontSize="18" Grid.Column="1" Grid.Row="2"/>
 
-                                <Label Text="Kontzeptua:" FontAttributes="Bold" FontSize="18" TextColor="DarkSlateGray" Grid.Row="3"/>
+                                <Label Text="Nora bidali:" FontAttributes="Bold" FontSize="18" TextColor="DarkSlateGray" Grid.Row="3"/>
                                 <Label Text="{Binding Kontzeptua}" TextColor="Black" FontSize="18" Grid.Column="1" Grid.Row="3"/>
 
                                 <Label Text="Egoera:" FontAttributes="Bold" FontSize="18" TextColor="DarkSlateGray" Grid.Row="4"/>
@@ -42,7 +44,7 @@
                             <!-- Prezio guztira-->
                             <HorizontalStackLayout Spacing="5" Margin="0,60,20,0">
                                 <Label Text="Guztira:" FontAttributes="Bold" FontSize="20" TextColor="DarkSlateGray" HorizontalOptions="Center"/>
-                                <Label Text="{Binding Guztira, StringFormat='{0:C}'}" FontSize="26" TextColor="Green" Margin="20, 0, 0, 0"
+                                <Label Text="{Binding Guztira, StringFormat='{0:C}'}" FontSize="26" TextColor="Green" Margin="135, 0, 0, 0"
                                             FontAttributes="Bold" HorizontalOptions="Center"/>
                             </HorizontalStackLayout>
                         </VerticalStackLayout>
@@ -52,24 +54,53 @@
                     <VerticalStackLayout VerticalOptions="Center" HeightRequest="700">
                         <Label  Text="Produktuen lista:" TextColor="White" FontSize="25" FontAttributes="Bold"/>
 
-                        <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
-                             Opacity="0.9" WidthRequest="600" HeightRequest="250">
-                            <CollectionView ItemsSource="{Binding Artikuloak}">
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate>
-                                        <itemViews:EskaerakIkusiProduktuak/>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
-                        </Frame>
+                        <!-- Kabezera -->
+                        <Grid ColumnDefinitions="100, 200, 100, 100" WidthRequest="600">
+                            <Label Text="ID" FontAttributes="Bold" Grid.Column="0" TextColor="White"/>
+                            <Label Text="Produktua" FontAttributes="Bold" Grid.Column="1" TextColor="White"/>
+                            <Label Text="Prezioa" FontAttributes="Bold" Grid.Column="2" TextColor="White"/>
+                            <Label Text="Kantitatea" FontAttributes="Bold" Grid.Column="3" TextColor="White"/>
+                        </Grid>
 
-                        <Label  Text="Falta diren produktuen lista:" TextColor="White" FontSize="25" FontAttributes="Bold" Margin="0,40,0,0"/>
+                        <!-- Eskaerak aukeratutako produktuen zerrenda-->
                         <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
-                          Opacity="0.9" WidthRequest="600" HeightRequest="250">
+                        Opacity="0.9" WidthRequest="600" HeightRequest="250">
                             <ScrollView>
-                                <itemViews:EskaerakIkusiProduktuak />
+                                <CollectionView ItemsSource="{Binding Artikuloak}">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <itemViews:EskaerakIkusiProduktuak/>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
                             </ScrollView>
                         </Frame>
+
+
+                        <!-- Kabezera -->
+                        <Grid ColumnDefinitions="100, 200, 100, 100" WidthRequest="600" Margin="0, 30, 0, 0">
+                            <Label Text="ID" FontAttributes="Bold" Grid.Column="0" TextColor="White"/>
+                            <Label Text="Produktua" FontAttributes="Bold" Grid.Column="1" TextColor="White"/>
+                            <Label Text="Stock" FontAttributes="Bold" Grid.Column="2" TextColor="White"/>
+                            <Label Text="Faltatzen dena" FontAttributes="Bold" Grid.Column="3" TextColor="White"/>
+                        </Grid>
+
+                        <!-- Eskaeran falta diren produktuak (Stock gutxi)-->
+                        <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
+                         Opacity="0.9" WidthRequest="600" HeightRequest="250">
+                            <ScrollView>
+                                <CollectionView ItemsSource="{Binding stockFaltaArtikuloak}">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <itemViews:EskaerakIkusiProduktuakStock/>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </ScrollView>
+                        </Frame>
+
+
+                        <!-- Eskaeraren egoera kontrolatzeko botoiak-->
                         <HorizontalStackLayout HorizontalOptions="Center" Spacing="50" Margin="0,30,0,0">
                             <Button Text="Prestatuta" BackgroundColor="#876f05" TextColor="White"/>
                             <Button Text="Bidalita" BackgroundColor="#01264b" TextColor="White"/>
@@ -86,3 +117,21 @@
         </ScrollView>
     </Grid>
 </ContentPage>
+    
+    
+<!--
+    CREATE TRIGGER update_guztira
+AFTER INSERT OR UPDATE OR DELETE ON EskaeraArtikuloa
+FOR EACH ROW
+BEGIN
+    UPDATE Eskaera
+    SET guztira = (
+        SELECT SUM(ea.Kantitatea * a.Prezioa)
+        FROM EskaeraArtikuloa ea
+        JOIN Artikulo a ON ea.ArtikuloaId = a.Id
+        WHERE ea.EsakaeraId = NEW.EsakaeraId
+    )
+    WHERE id = NEW.EsakaeraId;
+END;
+
+-->

@@ -28,8 +28,13 @@ namespace lurraldeOrdezkaritzak
         [XmlElement("stock")]
         public int Stock { get; set; }
 
+        /// <summary>
+        ///     ViewModel-etan erabiltzeko erreferentzia kantitateari, ez da sortuko datu basean
+        ///     StockFalta Kalkulatzeko propietatea ere
+        /// </summary>
         [Ignore]
         public int Kantitatea { get; set; }
+        public int StockFalta => Math.Max(0, Kantitatea - Stock);
 
         public Artikuloa() { }
 

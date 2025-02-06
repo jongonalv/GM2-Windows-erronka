@@ -222,7 +222,8 @@ namespace lurraldeOrdezkaritzak
         }
 
         /// <summary>
-        ///    Egoitza nagusitik artikulo berriak badatozte eguneratzeko metodoa
+        ///    Egoitza nagusitik artikulo berriak badatozte eguneratzeko metodoa, baita ere
+        ///    jadanik datu basean dauden artikuluoak eguneratzeko bere Stock-a edo Prezioa
         /// </summary>
         /// <returns></returns>
         public async Task XMLArtikuloakKargatu()
@@ -246,37 +247,46 @@ namespace lurraldeOrdezkaritzak
 
             string fitxHelbidea = pickResult.FullPath;
 
-            // XML Artikuloak kargatu aukeratutako fitxategitik
-            var xmlArtikuloak = _xmlManager.LoadArtikuloakFromXml(fitxHelbidea);
-
-            // Ez badira aurkitu Artikulorik, debug ipini (DISPLAY ALERT ALDATU!!!!!!!!!)
-            if (xmlArtikuloak.Count == 0)
+            try
             {
-                Debug.WriteLine("Ez dira aurkitu daturik XML fitxategian");
-                return;
-            }
+                // XML Artikuloak kargatu aukeratutako fitxategitik
+                var xmlArtikuloak = _xmlManager.LoadArtikuloakFromXml(fitxHelbidea);
 
-            // Datu basetik existitzen diren artikulo guztiak lortu
-            var existingArtikuloak = await _database.Table<Artikuloa>().ToListAsync();
-            var existingArtikuloakDict = existingArtikuloak.ToDictionary(a => (a.Izena, a.Kategoria));
-
-            foreach (var xmlArtikuloa in xmlArtikuloak)
-            {
-                if (existingArtikuloakDict.TryGetValue((xmlArtikuloa.Izena, xmlArtikuloa.Kategoria), out var existingArtikuloa))
+                if (xmlArtikuloak.Count == 0)
                 {
-                    // Eguneratu aldaketarik bakarrik badaude
-                    if (existingArtikuloa.Prezioa != xmlArtikuloa.Prezioa || existingArtikuloa.Stock != xmlArtikuloa.Stock)
+                    Debug.WriteLine("Ez dira aurkitu daturik XML fitxategian");
+                    return;
+                }
+
+                var existingArtikuloak = await _database.Table<Artikuloa>().ToListAsync();
+                var existingArtikuloakDict = existingArtikuloak.ToDictionary(a => (a.Izena, a.Kategoria));
+
+                foreach (var xmlArtikuloa in xmlArtikuloak)
+                {
+                    if (existingArtikuloakDict.TryGetValue((xmlArtikuloa.Izena, xmlArtikuloa.Kategoria), out var existingArtikuloa))
                     {
-                        existingArtikuloa.Prezioa = xmlArtikuloa.Prezioa;
-                        existingArtikuloa.Stock = xmlArtikuloa.Stock;
-                        await _database.UpdateAsync(existingArtikuloa);
+                        if (existingArtikuloa.Prezioa != xmlArtikuloa.Prezioa || existingArtikuloa.Stock != xmlArtikuloa.Stock)
+                        {
+                            existingArtikuloa.Prezioa = xmlArtikuloa.Prezioa;
+                            existingArtikuloa.Stock = xmlArtikuloa.Stock;
+                            await _database.UpdateAsync(existingArtikuloa);
+                        }
+                    }
+                    else
+                    {
+                        await _database.InsertAsync(xmlArtikuloa);
                     }
                 }
-                else
-                {
-                    await _database.InsertAsync(xmlArtikuloa);
-                }
             }
+            catch (SQLiteException ex)
+            {
+                Debug.WriteLine($"SQLiteException: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Erroreren bat gertatu da: {ex.Message}");
+            }
+
         }
     }
 }

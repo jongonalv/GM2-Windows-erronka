@@ -2,19 +2,28 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LurraldeOrdezkaritzak.ItemViews.Eskaerak">
-    <VerticalStackLayout Padding="10">
-        <Frame BorderColor="Black" CornerRadius="20" Padding="10" BackgroundColor="White" HeightRequest="130" VerticalOptions="Start">
-            <VerticalStackLayout HorizontalOptions="Fill" Spacing="5">
+    <VerticalStackLayout Padding="15">
+        <Frame BorderColor="LightGray" CornerRadius="15" Padding="15" BackgroundColor="White"
+               HeightRequest="140" VerticalOptions="Start" HasShadow="True">
+            <VerticalStackLayout HorizontalOptions="Fill" Spacing="15">
 
-                <Grid ColumnDefinitions="50, *, Auto" Padding="10">
-                    <Label Text="{Binding Id}" VerticalOptions="Center" FontSize="23" TextColor="Black" Grid.Column="0"/>
-                    <Label Text="{Binding Kontzeptua}" VerticalOptions="Center" FontSize="23" TextColor="Black" Grid.Column="1"/>
-                    <Button Text="Ikusi" HeightRequest="35" WidthRequest="100" BackgroundColor="Black" TextColor="White" Clicked="Ikusi_clicked" Grid.Column="2"/>
+                <!-- ID y Kontzeptua -->
+                <Grid ColumnDefinitions="60, *, Auto" Padding="5">
+                    <Label Text="{Binding Id}" VerticalOptions="Center" FontSize="20" FontAttributes="Bold"
+                           TextColor="#333" Grid.Column="0"/>
+                    <Label Text="{Binding Kontzeptua}" VerticalOptions="Center" FontSize="20"
+                           TextColor="#444" Grid.Column="1"/>
+                    <Button Text="Ikusi" HeightRequest="40" WidthRequest="110"
+                            BackgroundColor="#007ACC" TextColor="White" CornerRadius="8"
+                            FontAttributes="Bold" Clicked="Ikusi_clicked" Grid.Column="2"/>
                 </Grid>
 
-                <Grid ColumnDefinitions="*, Auto" Padding="10">
-                    <Label Text="{Binding Izena}" VerticalOptions="Center" FontSize="20" TextColor="Black" Grid.Column="0"/>
-                    <Label Text="{Binding EskaeraData}" VerticalOptions="Center" FontSize="20" TextColor="Black" Grid.Column="1"/>
+                <!-- Izena y EskaeraData -->
+                <Grid ColumnDefinitions="*, Auto" Padding="5">
+                    <Label Text="{Binding Izena}" VerticalOptions="Center" FontSize="18"
+                           TextColor="#555" Grid.Column="0"/>
+                    <Label Text="{Binding EskaeraData}" VerticalOptions="Center" FontSize="18"
+                           TextColor="#777" Grid.Column="1"/>
                 </Grid>
 
             </VerticalStackLayout>

@@ -19,6 +19,10 @@ namespace LurraldeOrdezkaritzak.ViewModels
             Task.Run(async () => await LoadEskaerak());
         }
 
+        /// <summary>
+        ///     Eskaerak kargatzeko metodoa
+        /// </summary>
+        /// <returns></returns>
         public async Task LoadEskaerak()
         {
             var eskaeraList = await _dbManager.GetEskaerakAsync();
@@ -45,7 +49,16 @@ namespace LurraldeOrdezkaritzak.ViewModels
         public string Egoera { get; set; }
         public double Guztira { get; set; }
 
+        // Eskaeraren artikuloak azaltzeko zerrenda
         public ObservableCollection<Artikuloa> Artikuloak { get; set; }
+
+        // Stock falta duten artikuloak azaltzeko zerrenda
+        public ObservableCollection<Artikuloa> stockFaltaArtikuloak
+        => new ObservableCollection<Artikuloa>(Artikuloak.Where(a => a.Kantitatea > a.Stock));
+
+
+        // Propietate berri bat stock-a falta bada
+        public bool StockFalta => Artikuloak.Any(a => a.Kantitatea > a.Stock);
 
         public EskaeraViewModel(Eskaera eskaera, Bazkidea bazkidea, ObservableCollection<Artikuloa> artikuloak)
         {
@@ -58,5 +71,4 @@ namespace LurraldeOrdezkaritzak.ViewModels
             Artikuloak = artikuloak ?? new ObservableCollection<Artikuloa>();
         }
     }
-
 }

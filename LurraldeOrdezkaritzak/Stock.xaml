@@ -79,7 +79,7 @@
                                 SelectedItem="{Binding SelectedKategoria, Mode=TwoWay}"
                                 Style="{StaticResource BasePickerStyle}" />
 
-                        <Button Text="Datuak kargatu"
+                        <Button Text="Egoitza datuak kargatu"
                                 Style="{StaticResource BaseButtonStyle}"
                                 x:Name="datuakKargatuButton"
                                 Clicked="datuakKargatuButton_Clicked" />

@@ -126,6 +126,9 @@
 	  <MauiXaml Update="ItemViews\EskaerakIkusiProduktuak.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="ItemViews\EskaerakIkusiProduktuakStock.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="ItemViews\EskeraEgoitzaIkusi.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

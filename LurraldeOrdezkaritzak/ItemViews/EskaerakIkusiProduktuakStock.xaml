@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LurraldeOrdezkaritzak.ItemViews.EskaerakIkusiProduktuakStock">
+
+    <VerticalStackLayout Spacing="8" Padding="10">
+        <Frame BorderColor="LightGray" CornerRadius="15" Padding="8" BackgroundColor="White" HeightRequest="70" VerticalOptions="Start" Margin="0,5,0,0" HasShadow="True">
+            <Grid ColumnDefinitions="50, *, *, *" HorizontalOptions="Fill">
+                <Label Text="{Binding Id}" FontSize="18" TextColor="Black" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
+                <Label Text="{Binding Izena}" FontSize="18" TextColor="Black" VerticalOptions="Center" Grid.Column="1"/>
+                <Label Text="{Binding Stock}" FontSize="18" TextColor="Black" VerticalOptions="Center" Grid.Column="2" HorizontalTextAlignment="Center"/>
+                <Label Text="{Binding StockFalta}" FontSize="18" TextColor="Red" VerticalOptions="Center" Grid.Column="3" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+            </Grid>
+        </Frame>
+    </VerticalStackLayout>
+</ContentView>

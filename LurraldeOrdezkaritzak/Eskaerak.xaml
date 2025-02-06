@@ -6,13 +6,24 @@
              Title="Eskaerak">
     <Grid>
         <Image Source="fondobidalketak.jpg" Aspect="AspectFill"
-            VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  />
+               VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  />
 
-        <ScrollView>
+        <Button Text="🛒 Komertzialeen Eskaerak Kargatu"
+                FontSize="18"
+                BackgroundColor="#4CAF50"
+                TextColor="White"
+                CornerRadius="10"
+                Padding="10"
+                Margin="20"
+                Command="{Binding KargatuKomertzialEskaerak}"
+                HorizontalOptions="Center"
+                VerticalOptions="Start" />
+
+        <ScrollView Margin="0,60,0,0">
             <HorizontalStackLayout HorizontalOptions="Center">
                 <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
-                        Opacity="0.9" WidthRequest="700" HeightRequest="600"
-                        HorizontalOptions="Center">
+                       Opacity="0.9" WidthRequest="700" HeightRequest="600"
+                       HorizontalOptions="Center">
 
                     <CollectionView ItemsSource="{Binding Eskaerak}">
                         <CollectionView.ItemTemplate>

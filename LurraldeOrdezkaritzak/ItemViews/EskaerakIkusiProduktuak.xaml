@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LurraldeOrdezkaritzak.ItemViews.Stock">
+             x:Class="LurraldeOrdezkaritzak.ItemViews.EskaerakIkusiProduktuak">
 
-    <VerticalStackLayout Spacing="10">
-        <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start">
-            <HorizontalStackLayout Spacing="50" HorizontalOptions="Center" Padding="10">
-                <Label Text="{Binding Id}" VerticalOptions="Center" FontSize="23" TextColor="Black"/>
-                <Label Text="{Binding Izena}" VerticalOptions="Center" FontSize="23" TextColor="Black"/>
-                <Label Text="{Binding Prezioa}" VerticalOptions="Center" FontSize="23" TextColor="Black"/>
-                <Label Text="{Binding Kantitatea}" VerticalOptions="Center" FontSize="23" TextColor="Black"/>
-            </HorizontalStackLayout>
+    <VerticalStackLayout Spacing="5">
+        <Frame BorderColor="LightGrey" CornerRadius="15" Padding="5" BackgroundColor="White" HeightRequest="60" VerticalOptions="Start" Margin="0, 5, 0, 0">
+            <Grid ColumnDefinitions="50, *, *, *" HorizontalOptions="Fill">
+                <Label Text="{Binding Id}" FontSize="18" TextColor="Black" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
+                <Label Text="{Binding Izena}" FontSize="18" TextColor="Black" VerticalOptions="Center" Grid.Column="1"/>
+                <Label Text="{Binding Prezioa}" FontSize="18" TextColor="Black" VerticalOptions="Center" Grid.Column="2" HorizontalTextAlignment="Center"/>
+                <Label Text="{Binding Kantitatea}" FontSize="18" TextColor="Black" VerticalOptions="Center" Grid.Column="3" HorizontalTextAlignment="Center"/>
+            </Grid>
         </Frame>
     </VerticalStackLayout>
 </ContentView>
