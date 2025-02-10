@@ -12,8 +12,8 @@ public partial class EskaeraEgoitzaArtikuloa : ContentView
         var button = (Button)sender;
         button.Text = "Entregatuta";
         button.IsEnabled = false;
-        button.BackgroundColor = Colors.Gray; 
-        button.TextColor = Colors.White; 
+        button.BackgroundColor = Colors.Gray;
+        button.TextColor = Colors.White;
     }
 
 }

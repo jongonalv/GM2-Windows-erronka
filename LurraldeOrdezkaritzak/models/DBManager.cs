@@ -1,4 +1,5 @@
 ﻿using Ikaslea.KomertzialakApp.Models.Enums;
+using LurraldeOrdezkaritzak.ItemViews;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -41,6 +42,7 @@ namespace lurraldeOrdezkaritzak
                 await _database.CreateTableAsync<Bazkidea>();
                 await _database.CreateTableAsync<Eskaera>();
                 await _database.CreateTableAsync<EskaeraArtikuloa>();
+                await _database.CreateTableAsync<EskaeraEgoitza>();
             }
             catch (Exception ex)
             {
@@ -195,6 +197,46 @@ namespace lurraldeOrdezkaritzak
 
             return eskaerak;
         }
+
+
+
+        public Task<List<EskaeraEgoitza>> GetEskaeraEgoitzaAsync()
+        {
+            return _database.Table<EskaeraEgoitza>().ToListAsync();
+        }
+
+        public Task<EskaeraEgoitza> GetEskaeraEgoitzaAsync(int id)
+        {
+            return _database.Table<EskaeraEgoitza>().Where(e => e.Id == id).FirstOrDefaultAsync();
+        }
+
+        public Task<int> SaveEskaeraEgoitzaAsync(EskaeraEgoitza eskaeraEgoitza)
+        {
+            return eskaeraEgoitza.Id != 0 ? _database.UpdateAsync(eskaeraEgoitza) : _database.InsertAsync(eskaeraEgoitza);
+        }
+
+        public Task<int> DeleteEskaeraEgoitzaAsync(EskaeraEgoitza eskaeraEgoitza)
+        {
+            return _database.DeleteAsync(eskaeraEgoitza);
+        }
+        public async Task<List<Artikuloa>> GetArtikuloakByEskaeraEgoitzaIdAsync(int eskaeraEgoitzaId)
+        {
+            var artikuloak = await _database.QueryAsync<Artikuloa>(
+                @"SELECT a.Id, a.Izena, a.Stock, a.Prezioa, ea.kantitatea 
+          FROM Artikuloa a
+          INNER JOIN EskaeraEgoitza ee ON a.id = ee.ArtikuloaId
+          WHERE ee.eskaera_id = ?", eskaeraEgoitzaId);
+
+            foreach (var artikulo in artikuloak)
+            {
+                artikulo.Kantitatea = await _database.ExecuteScalarAsync<int>(
+                    "SELECT kantitatea FROM EskaeraArtikuloa WHERE artikuloa_id = ? AND eskaera_id = ?",
+                    artikulo.Id, eskaeraEgoitzaId);
+            }
+
+            return artikuloak;
+        }
+
 
         /// <summary>
         ///     metodo tenporala bazkideak sartzeko

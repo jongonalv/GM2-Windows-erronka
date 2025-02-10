@@ -4,21 +4,22 @@
              x:Class="LurraldeOrdezkaritzak.ItemViews.EskaeraEgoitzaArtikuloa">
     
     <VerticalStackLayout Spacing="20">
-        <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start">
-            <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center">
-                <Label Text="1" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-                <Label Text="Martillito" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-                <Label Text="120" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-                <Button Text="Entregatu"  TextColor="White" HeightRequest="20" WidthRequest="120" BackgroundColor="Black" Clicked="OnEntregatuClicked"/>
-            </HorizontalStackLayout>
-        </Frame>
-        <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start" >
-            <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center">
-                <Label Text="1" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-                <Label Text="Martillito" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-                <Label Text="120" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-                <Button Text="Entregatu" HeightRequest="20" WidthRequest="120" BackgroundColor="Black" Clicked="OnEntregatuClicked"  TextColor="White"/>
-            </HorizontalStackLayout>
+        <Frame BorderColor="#CCCCCC" CornerRadius="15" Padding="15" BackgroundColor="White" HeightRequest="100" VerticalOptions="Start" HasShadow="True">
+            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Text="{Binding Id}" Grid.Column="0" VerticalOptions="Center" FontSize="20" TextColor="Black" FontAttributes="Bold"/>
+                <Label Text="{Binding ArtikuloaIzena}" Grid.Column="1" VerticalOptions="Center" FontSize="20" TextColor="Black"/>
+                <Label Text="{Binding Kantitatea}" Grid.Column="2" VerticalOptions="Center" FontSize="20" TextColor="Black"/>
+                <Button Text="Entregatu"  Grid.Column="3" HeightRequest="20" WidthRequest="120" BackgroundColor="Black" Clicked="OnEntregatuClicked"  TextColor="White"/>
+
+
+            </Grid>
+
         </Frame>
     </VerticalStackLayout>
 </ContentView>

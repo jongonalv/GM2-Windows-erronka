@@ -25,10 +25,14 @@
                     <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
                         Opacity="0.9" WidthRequest="700" HeightRequest="600"
                         HorizontalOptions="Center" >
-                        <ScrollView>
-                            <itemViews:EskaeraEgoitza />
-                        </ScrollView>
-                        
+                        <CollectionView ItemsSource="{Binding EskaeraEgoitza}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <itemViews:EskaeraEgoitzaArtikuloa />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
                     </Frame>
                 </VerticalStackLayout>
             </HorizontalStackLayout>
