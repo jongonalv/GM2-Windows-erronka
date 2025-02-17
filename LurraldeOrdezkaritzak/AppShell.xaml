@@ -27,16 +27,16 @@
           Title="Eskaerak" Icon="pedido.png" 
           ContentTemplate="{DataTemplate local:Eskaerak}"
           Route="Eskaerak"/>
-
-        <ShellContent 
-          Title="Eskaerak Egoitza" Icon="egoitza.png" 
-          ContentTemplate="{DataTemplate local:EskaerakEgoitza}"
-          Route="EskaerakEgoitza"/>
-
+        
         <ShellContent 
           Title="Eskaera Egoitza Eskatu" Icon="egoitzaeskatu.png" 
           ContentTemplate="{DataTemplate local:EskaeraEgoitzaEskatu}"
           Route="Eskaera Egoitza Eskatu"/>
+        
+        <ShellContent 
+          Title="Eskaerak Egoitza" Icon="egoitza.png" 
+          ContentTemplate="{DataTemplate local:EskaerakEgoitza}"
+          Route="EskaerakEgoitza"/>
 
         <ShellContent 
           Title="Estadistikak" Icon="estadistika.png" 
