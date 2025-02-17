@@ -1,8 +1,10 @@
 ﻿using lurraldeOrdezkaritzak;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace LurraldeOrdezkaritzak.ViewModels
@@ -60,6 +62,12 @@ namespace LurraldeOrdezkaritzak.ViewModels
         // Propietate berri bat stock-a falta bada
         public bool StockFalta => Artikuloak.Any(a => a.Kantitatea > a.Stock);
 
+        // Nueva propiedad para habilitar/deshabilitar botones
+        public bool EstanBotonesHabilitados
+        {
+            get { return stockFaltaArtikuloak == null || stockFaltaArtikuloak.Count == 0; }
+        }
+
         public EskaeraViewModel(Eskaera eskaera, Bazkidea bazkidea, ObservableCollection<Artikuloa> artikuloak)
         {
             Id = eskaera.Id;
@@ -69,6 +77,12 @@ namespace LurraldeOrdezkaritzak.ViewModels
             Egoera = eskaera.Egoera.ToString();
             Guztira = eskaera.Guztira;
             Artikuloak = artikuloak ?? new ObservableCollection<Artikuloa>();
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

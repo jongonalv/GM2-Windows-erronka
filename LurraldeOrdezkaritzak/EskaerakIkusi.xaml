@@ -11,7 +11,6 @@
 
         <ScrollView>
             
-            <!-- PREGUNTAR A IMANOL SI ESTA BIEN MASOMENOS LO QUE ESTAMOS HACIENDO Y EL CAMPO DE BIDALKETA KODEA-->
 
             <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="20">
                 <HorizontalStackLayout  Spacing="150">
@@ -102,9 +101,32 @@
 
                         <!-- Eskaeraren egoera kontrolatzeko botoiak-->
                         <HorizontalStackLayout HorizontalOptions="Center" Spacing="50" Margin="0,30,0,0">
-                            <Button Text="Prestatuta" BackgroundColor="#876f05" TextColor="White"/>
-                            <Button Text="Bidalita" BackgroundColor="#01264b" TextColor="White"/>
-                            <Button Text="Bukatuta" BackgroundColor="#046127" TextColor="White"/>
+                            <Button x:Name="prestatutaButton" Text="Prestatuta" BackgroundColor="#876f05" TextColor="Grey" Clicked="Prestatuta_Clicked" IsEnabled="{Binding EstanBotonesHabilitados}">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding Egoera}" Value="PRESTATZEN">
+                                        <Setter Property="BackgroundColor" Value="Yellow"/>
+                                        <Setter Property="TextColor" Value="Black"/>
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            
+                            <Button Text="Bidalita" BackgroundColor="#01264b" TextColor="Grey" Clicked="Bidalita_Clicked"  IsEnabled="{Binding EstanBotonesHabilitados}">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding Egoera}" Value="PRESTATUTA">
+                                        <Setter Property="BackgroundColor" Value="LightBlue"/>
+                                        <Setter Property="TextColor" Value="Black"/>
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+
+                            <Button Text="Bukatuta" BackgroundColor="#046127" TextColor="Grey" Clicked="Bukatuta_Clicked" IsEnabled="{Binding EstanBotonesHabilitados}">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding Egoera}" Value="BIDALITA">
+                                        <Setter Property="BackgroundColor" Value="LightGreen"/>
+                                        <Setter Property="TextColor" Value="Black"/>
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
                 </HorizontalStackLayout>
@@ -119,19 +141,3 @@
 </ContentPage>
     
     
-<!--
-    CREATE TRIGGER update_guztira
-AFTER INSERT OR UPDATE OR DELETE ON EskaeraArtikuloa
-FOR EACH ROW
-BEGIN
-    UPDATE Eskaera
-    SET guztira = (
-        SELECT SUM(ea.Kantitatea * a.Prezioa)
-        FROM EskaeraArtikuloa ea
-        JOIN Artikulo a ON ea.ArtikuloaId = a.Id
-        WHERE ea.EsakaeraId = NEW.EsakaeraId
-    )
-    WHERE id = NEW.EsakaeraId;
-END;
-
--->

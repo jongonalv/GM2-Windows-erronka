@@ -9,11 +9,20 @@ namespace LurraldeOrdezkaritzak
         {
             InitializeComponent();
         }
-        
+
         private async void OnSaioaHasiClicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("//Hasiera");
+            string erabilztailea = ErabiltzaileaEntry.Text;
+            string pasahitza = PasahitzaEntry.Text;
 
+            if (erabilztailea == "admin" && pasahitza == "admin")
+            {
+                await Shell.Current.GoToAsync("//Hasiera");
+            }
+            else
+            {
+                await DisplayAlert("Errorea", "Erabiltzailea edo pasahitza okerrak", "OK");
+            }
         }
     }
 }

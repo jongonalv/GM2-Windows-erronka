@@ -6,14 +6,12 @@
     <Grid>
         <Image Source="fondosaioahasi.jpg" Aspect="AspectFill"
                VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  />
-
         <ScrollView>
             <VerticalStackLayout
                 Padding="30,0"
                 Spacing="25"
                 HorizontalOptions="Center"
                 VerticalOptions="Center">
-
 
                 <Image Source="logoTuercas.png" WidthRequest="200" />
 
@@ -22,9 +20,9 @@
                        HorizontalOptions="Center">
                     <VerticalStackLayout Spacing="10">
                         <Label Text="Erabiltzailea" TextColor="Black"/>
-                        <Entry />
+                        <Entry x:Name="ErabiltzaileaEntry" />
                         <Label Text="Pasahitza" TextColor="Black"/>
-                        <Entry IsPassword="True" />
+                        <Entry x:Name="PasahitzaEntry" IsPassword="True" />
                         <Button Text="Saioa hasi" BackgroundColor="DarkOrange" TextColor="White" Clicked="OnSaioaHasiClicked" />
                     </VerticalStackLayout>
                 </Frame>
