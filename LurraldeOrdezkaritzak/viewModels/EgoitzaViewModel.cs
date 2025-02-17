@@ -31,7 +31,7 @@ namespace LurraldeOrdezkaritzak.ViewModels
 
                 var artikuloakObservable = new ObservableCollection<Artikuloa>(artikuloakList);
 
-                EskaeraEgoitza.Add(new EskaeraEgoitzaItemViewModel(eskaeraEgoitza, artikuloakObservable.FirstOrDefault()));
+                EskaeraEgoitza.Add(new EskaeraEgoitzaItemViewModel(eskaeraEgoitza, artikuloakObservable));
 
             }
         }
@@ -43,15 +43,16 @@ namespace LurraldeOrdezkaritzak.ViewModels
         public int Kantitatea { get; set; }
         public string IritsieraData { get; set; }
         public bool Entregatuta { get; set; }
-        public int ArtikuloaId { get; set; }
+        public ObservableCollection<Artikuloa> Artikuloak { get; set; }
 
-        public EskaeraEgoitzaItemViewModel(EskaeraEgoitza eskaeraEgoitza, Artikuloa artikuloa)
+        public EskaeraEgoitzaItemViewModel(EskaeraEgoitza eskaeraEgoitza, ObservableCollection<Artikuloa> artikuloak)
         {
             Id = eskaeraEgoitza.Id;
             Kantitatea = eskaeraEgoitza.Kantitatea;
             IritsieraData = eskaeraEgoitza.Iritsiera_data.ToString("yyyy-MM-dd");
             Entregatuta = eskaeraEgoitza.Entregatuta;
-            ArtikuloaId = eskaeraEgoitza.ArtikuloaId;
+            Artikuloak = artikuloak ?? new ObservableCollection<Artikuloa>();
+
         }
     }
 }

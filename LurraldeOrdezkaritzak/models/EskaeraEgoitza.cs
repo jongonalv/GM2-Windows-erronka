@@ -1,4 +1,5 @@
 ﻿using System;
+using lurraldeOrdezkaritzak;
 using SQLite;
 
 [SQLite.Table("EskaeraEgoitza")]
@@ -16,9 +17,8 @@ public class EskaeraEgoitza
     [SQLite.Column("Entregatuta")]
     public bool Entregatuta { get; set; }
 
-    // Foreign Key taula Artikuloa
-    [SQLite.Column("ArtikuloaId")]
-    public int ArtikuloaId { get; set; }
+    [Ignore]
+    public List<Artikuloa> Artikuloa { get; set; } = new List<Artikuloa>();
 
     public EskaeraEgoitza() { }
 
