@@ -2,22 +2,39 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LurraldeOrdezkaritzak.ItemViews.EskaeraEgoitza">
-    <VerticalStackLayout Spacing="20">
-        <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start">
-            <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center">
-                <Label Text="1" VerticalOptions="Center" FontSize="23" TextColor="Black"/>
-                <Label Text="Martillito" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-                <Label Text="120" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-                <Label Text="2025-01-16" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-            </HorizontalStackLayout>
-        </Frame>
-        <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start">
-            <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center">
-                <Label Text="2" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-                <Label Text="Clavo" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-                <Label Text="122" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-                <Label Text="2024-12-29" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-            </HorizontalStackLayout>
+
+    <VerticalStackLayout Spacing="10" Padding="10">
+        <Frame BorderColor="#E0E0E0" CornerRadius="12" Padding="20" BackgroundColor="White" 
+               HeightRequest="90" VerticalOptions="Start" HasShadow="True">
+            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*" />
+                    <!-- ID -->
+                    <ColumnDefinition Width="1.5*" />
+                    <!-- ArtikuluaIzena -->
+                    <ColumnDefinition Width="0.8*" />
+                    <!-- Kantitatea -->
+                    <ColumnDefinition Width="1*" />
+                    <!-- IritsieraData -->
+                </Grid.ColumnDefinitions>
+
+                <!-- ID -->
+                <Label Text="{Binding Id}" Grid.Column="0" VerticalOptions="Center" 
+                       FontSize="18" TextColor="#333333" FontAttributes="Bold" 
+                       HorizontalOptions="Start" />
+
+                <!-- ArtikuluaIzena -->
+                <Label Text="{Binding ArtikuluaIzena}" Grid.Column="1" VerticalOptions="Center" 
+                       FontSize="18" TextColor="#333333" HorizontalOptions="Start" />
+
+                <!-- Kantitatea -->
+                <Label Text="{Binding Kantitatea}" Grid.Column="2" VerticalOptions="Center" 
+                       FontSize="18" TextColor="#333333" HorizontalOptions="Center" />
+
+                <!-- IritsieraData -->
+                <Label Text="{Binding IritsieraData}" Grid.Column="3" VerticalOptions="Center" 
+                       FontSize="18" TextColor="#333333" HorizontalOptions="End" />
+            </Grid>
         </Frame>
     </VerticalStackLayout>
 </ContentView>

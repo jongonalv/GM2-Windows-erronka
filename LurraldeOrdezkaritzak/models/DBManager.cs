@@ -156,9 +156,9 @@ namespace lurraldeOrdezkaritzak
         {
             var artikuloak = await _database.QueryAsync<Artikuloa>(
                 @"SELECT a.Id, a.Izena, a.Stock, a.Prezioa, ea.kantitatea 
-          FROM Artikuloa a
-          INNER JOIN EskaeraArtikuloa ea ON a.Id = ea.artikuloa_id
-          WHERE ea.eskaera_id = ?", eskaeraId);
+                  FROM Artikuloa a
+                  INNER JOIN EskaeraArtikuloa ea ON a.Id = ea.artikuloa_id
+                  WHERE ea.eskaera_id = ?", eskaeraId);
 
             foreach (var artikulo in artikuloak)
             {
@@ -169,9 +169,6 @@ namespace lurraldeOrdezkaritzak
 
             return artikuloak;
         }
-
-
-
 
         /// <summary>
         /// Eskaerak lortzeko metodoa artikuloaren arabera
@@ -219,48 +216,56 @@ namespace lurraldeOrdezkaritzak
         {
             return _database.DeleteAsync(eskaeraEgoitza);
         }
-        public async Task<List<Artikuloa>> GetArtikuloakByEskaeraEgoitzaIdAsync(int eskaeraEgoitzaId)
+
+        public async Task<string> GetArtikuloaById(int id)
         {
-            var artikuloak = await _database.QueryAsync<Artikuloa>(
-                @"SELECT a.Id, a.Izena, a.Stock, a.Prezioa, ea.kantitatea 
-          FROM Artikuloa a
-          INNER JOIN EskaeraEgoitza ee ON a.id = ee.ArtikuloaId
-          WHERE ee.eskaera_id = ?", eskaeraEgoitzaId);
-
-            foreach (var artikulo in artikuloak)
-            {
-                artikulo.Kantitatea = await _database.ExecuteScalarAsync<int>(
-                    "SELECT kantitatea FROM EskaeraArtikuloa WHERE artikuloa_id = ? AND eskaera_id = ?",
-                    artikulo.Id, eskaeraEgoitzaId);
-            }
-
-            return artikuloak;
+            var query = "SELECT izena FROM Artikuloa WHERE id = ?";
+            var result = await _database.ExecuteScalarAsync<string>(query, id);
+            return result ?? "Ezezaguna"; 
         }
 
-
-        /// <summary>
-        ///     metodo tenporala bazkideak sartzeko
-        /// </summary>
-        public void InsertBazkideak()
+        public async Task UpdateArtikuloaStockAsync(int artikuloaId, int kantitatea)
         {
-            using (var db = new SQLiteConnection(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "lurraldeOrdezkaritzak.db3")))
+            var artikuloa = await _database.Table<Artikuloa>().FirstOrDefaultAsync(a => a.Id == artikuloaId);
+            if (artikuloa != null)
             {
-                db.CreateTable<Bazkidea>(); // Asegurar que la tabla existe
-
-                List<Bazkidea> bazkideak = new List<Bazkidea>
-                {
-                    new Bazkidea { Id = 8, Izena = "Francisco Franco Bahamonde", Email = "jon.goni@example.com", Telefonoa = "123456789", Helbidea = "Kalea 1, Donostia", BazkideMota = "Premium", KomerzialaId = 1 },
-                    new Bazkidea { Id = 6, Izena = "Ane Lasa", Email = "ane.lasa@example.com", Telefonoa = "987654321", Helbidea = "Kalea 2, Bilbo", BazkideMota = "Estandar", KomerzialaId = 2 },
-                    new Bazkidea { Id = 4, Izena = "Mikel Etxeberria", Email = "mikel.etxeberria@example.com", Telefonoa = "654321987", Helbidea = "Kalea 3, Gasteiz", BazkideMota = "Estandar", KomerzialaId = 3 },
-                    new Bazkidea { Id = 7, Izena = "Maite Arrieta", Email = "maite.arrieta@example.com", Telefonoa = "321987654", Helbidea = "Kalea 4, Iruñea", BazkideMota = "Premium", KomerzialaId = 4 },
-                    new Bazkidea { Id = 5, Izena = "Ander Olaizola", Email = "ander.olaizola@example.com", Telefonoa = "159753468", Helbidea = "Kalea 5, Baiona", BazkideMota = "Estandar", KomerzialaId = 5 }
-                };
-
-                foreach (var bazkidea in bazkideak)
-                {
-                    db.InsertOrReplace(bazkidea);
-                }
+                artikuloa.Stock -= kantitatea;
+                await _database.UpdateAsync(artikuloa);
             }
+        }
+        public async Task MarkEskaeraEgoitzaAsEntregatutaAsync(int id)
+        {
+            var eskaeraEgoitza = await _database.Table<EskaeraEgoitza>().FirstOrDefaultAsync(e => e.Id == id);
+            if (eskaeraEgoitza != null)
+            {
+                eskaeraEgoitza.Entregatuta = true;
+                await _database.UpdateAsync(eskaeraEgoitza);
+            }
+        }
+
+        public async Task<EskaeraEgoitza> GetEskaeraEgoitzaByIdAsync(int id)
+        {
+            var query = @"
+                SELECT ee.id, ee.Kantitatea, ee.Iritsiera_data AS IritsieraDataUnix, ee.Entregatuta,
+                       ee.artikuloa_id AS ArtikuloaId, a.izena AS ArtikuluaIzena
+                FROM EskaeraEgoitza ee
+                INNER JOIN Artikuloa a ON ee.artikuloa_id = a.id
+                WHERE ee.id = ?";
+
+            var eskaeraEgoitza = await _database.QueryAsync<EskaeraEgoitza>(query, id);
+            return eskaeraEgoitza.FirstOrDefault();
+        }
+
+        public async Task<List<EskaeraEgoitza>> GetEskaeraEgoitzaWithArtikuluaAsync()
+        {
+            var query = @"
+                        SELECT ee.id, ee.Kantitatea, ee.Iritsiera_data AS IritsieraDataUnix, ee.Entregatuta,
+                               ee.artikuloa_id AS ArtikuloaId, a.izena AS ArtikuluaIzena
+                        FROM EskaeraEgoitza ee
+                        INNER JOIN Artikuloa a ON ee.artikuloa_id = a.id";
+
+            var eskaeraEgoitzaList = await _database.QueryAsync<EskaeraEgoitza>(query);
+            return eskaeraEgoitzaList.ToList();
         }
 
         /// <summary>

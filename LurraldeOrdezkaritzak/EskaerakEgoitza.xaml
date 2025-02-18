@@ -5,26 +5,36 @@
              xmlns:itemViews="clr-namespace:LurraldeOrdezkaritzak.ItemViews"
              Title="EskaerakEgoitza">
     <Grid>
+        <!-- Fondo de la página -->
         <Image Source="fondoegoitza.jpg" Aspect="AspectFill"
-            VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  />
+               VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
 
         <ScrollView>
-            <HorizontalStackLayout HorizontalOptions="Center" Spacing="150">
-                <HorizontalStackLayout>
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="50">
+                <!-- Columna izquierda: Eskaera egoitza aktuala -->
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Eskaera egoitza aktuala" 
+                           TextColor="White" FontSize="25" FontAttributes="Bold" 
+                           HorizontalOptions="Center" Margin="0,40,0,10"/>
+
+                    <!-- Cabecera de la tabla con 4 columnas -->
+                    <Grid BackgroundColor="Gray" Padding="10" HorizontalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                        <Label Text="ID" FontAttributes="Bold" HorizontalOptions="Start" Grid.Column="0"/>
+                        <Label Text="Artikuloa" FontAttributes="Bold" HorizontalOptions="Center" Grid.Column="1"/>
+                        <Label Text="Kantitatea" FontAttributes="Bold" HorizontalOptions="Center" Grid.Column="2"/>
+                        <Label Text="Entregatu" FontAttributes="Bold" HorizontalOptions="End" Grid.Column="3"/>
+                    </Grid>
+
+                    <!-- Lista de elementos -->
                     <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
-                        Opacity="0.9" WidthRequest="700" HeightRequest="600"
-                        HorizontalOptions="Center">
-                        <ScrollView>
-                            <itemViews:EskaeraEgoitzaArtikuloa />
-                        </ScrollView>
-                    </Frame>
-                </HorizontalStackLayout>
-                
-                <VerticalStackLayout VerticalOptions="Center">
-                    <Label  Text="Eskaera egoitza historiala" TextColor="White" FontSize="25" FontAttributes="Bold" Margin="0,40,0,0"/>
-                    <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
-                        Opacity="0.9" WidthRequest="700" HeightRequest="600"
-                        HorizontalOptions="Center" >
+                           Opacity="0.9" WidthRequest="700" HeightRequest="600"
+                           HorizontalOptions="Center">
                         <CollectionView ItemsSource="{Binding EskaeraEgoitza}">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
@@ -32,11 +42,43 @@
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
+                    </Frame>
+                </VerticalStackLayout>
 
+                <!-- Columna derecha: Eskaera egoitza historiala -->
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Eskaera egoitza historiala" 
+                           TextColor="White" FontSize="25" FontAttributes="Bold" 
+                           HorizontalOptions="Center" Margin="0,40,0,10"/>
+
+                    <!-- Cabecera de la tabla con 4 columnas -->
+                    <Grid BackgroundColor="Gray" Padding="10" HorizontalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="150" />
+                        </Grid.ColumnDefinitions>
+                        <Label Text="ID" FontAttributes="Bold" HorizontalOptions="Start" Grid.Column="0"/>
+                        <Label Text="Artikuloa" FontAttributes="Bold" HorizontalOptions="Center" Grid.Column="1"/>
+                        <Label Text="Kantitatea" FontAttributes="Bold" HorizontalOptions="Center" Grid.Column="2"/>
+                        <Label Text="Iritsiera data" FontAttributes="Bold" HorizontalOptions="End" Grid.Column="3"/>
+                    </Grid>
+
+                    <!-- Lista de elementos históricos -->
+                    <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
+                           Opacity="0.9" WidthRequest="700" HeightRequest="600"
+                           HorizontalOptions="Center">
+                        <CollectionView ItemsSource="{Binding EskaeraEgoitzaHistoriala}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <itemViews:EskaeraEgoitza />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
                     </Frame>
                 </VerticalStackLayout>
             </HorizontalStackLayout>
-
         </ScrollView>
     </Grid>
 </ContentPage>

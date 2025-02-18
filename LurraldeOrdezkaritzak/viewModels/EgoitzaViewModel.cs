@@ -10,8 +10,11 @@ namespace LurraldeOrdezkaritzak.ViewModels
     {
         private readonly DBManager _dbManager;
 
-       public ObservableCollection<EskaeraEgoitzaItemViewModel> EskaeraEgoitza { get; set; } = new();
+        // Lista para las solicitudes actuales (fecha actual hacia adelante)
+        public ObservableCollection<EskaeraEgoitzaItemViewModel> EskaeraEgoitza { get; set; } = new();
 
+        // Lista para el historial de solicitudes (fecha actual hacia atrás)
+        public ObservableCollection<EskaeraEgoitzaItemViewModel> EskaeraEgoitzaHistoriala { get; set; } = new();
 
         public EgoitzaViewModel()
         {
@@ -23,36 +26,43 @@ namespace LurraldeOrdezkaritzak.ViewModels
         {
             var eskaeraList = await _dbManager.GetEskaeraEgoitzaAsync();
             EskaeraEgoitza.Clear();
+            EskaeraEgoitzaHistoriala.Clear();
+
+            var fechaActual = DateTime.Today;
 
             foreach (var eskaeraEgoitza in eskaeraList)
             {
-               
-                var artikuloakList = await _dbManager.GetArtikuloakByEskaeraEgoitzaIdAsync(eskaeraEgoitza.Id);
+                string artikuluaIzena = await _dbManager.GetArtikuloaById(eskaeraEgoitza.ArtikuloaId);
+                var itemViewModel = new EskaeraEgoitzaItemViewModel(eskaeraEgoitza, artikuluaIzena);
 
-                var artikuloakObservable = new ObservableCollection<Artikuloa>(artikuloakList);
-
-                EskaeraEgoitza.Add(new EskaeraEgoitzaItemViewModel(eskaeraEgoitza, artikuloakObservable));
-
+                // Filtrado por fecha
+                if (eskaeraEgoitza.Iritsiera_data >= fechaActual)
+                {
+                    EskaeraEgoitza.Add(itemViewModel);
+                }
+                else
+                {
+                    EskaeraEgoitzaHistoriala.Add(itemViewModel);
+                }
             }
         }
     }
 
     public class EskaeraEgoitzaItemViewModel
+{
+    public int Id { get; set; }
+    public int Kantitatea { get; set; }
+    public string IritsieraData { get; set; }
+    public bool Entregatuta { get; set; }
+    public string ArtikuluaIzena { get; set; }
+
+    public EskaeraEgoitzaItemViewModel(EskaeraEgoitza eskaeraEgoitza, string artikuluaIzena)
     {
-        public int Id { get; set; }
-        public int Kantitatea { get; set; }
-        public string IritsieraData { get; set; }
-        public bool Entregatuta { get; set; }
-        public ObservableCollection<Artikuloa> Artikuloak { get; set; }
-
-        public EskaeraEgoitzaItemViewModel(EskaeraEgoitza eskaeraEgoitza, ObservableCollection<Artikuloa> artikuloak)
-        {
-            Id = eskaeraEgoitza.Id;
-            Kantitatea = eskaeraEgoitza.Kantitatea;
-            IritsieraData = eskaeraEgoitza.Iritsiera_data.ToString("yyyy-MM-dd");
-            Entregatuta = eskaeraEgoitza.Entregatuta;
-            Artikuloak = artikuloak ?? new ObservableCollection<Artikuloa>();
-
-        }
+        Id = eskaeraEgoitza.Id;
+        Kantitatea = eskaeraEgoitza.Kantitatea;
+        IritsieraData = eskaeraEgoitza.Iritsiera_data.ToString("yyyy-MM-dd");
+        Entregatuta = eskaeraEgoitza.Entregatuta;
+        ArtikuluaIzena = artikuluaIzena;
     }
+}
 }
