@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LurraldeOrdezkaritzak.ItemViews.EskaeraEgoitzaEskatuProduktua">
 
-    <!-- Frame principal con bordes redondeados y sombra para mejor apariencia -->
+    <!-- Marko nagusia, ertz borobilduak eta itzala duen interfazea hobetzeko -->
     <Frame BorderColor="LightGray" 
            CornerRadius="20" 
            Padding="15" 
@@ -12,19 +12,19 @@
            VerticalOptions="Start"
            HasShadow="True">
 
-        <!-- HorizontalStackLayout para organizar los elementos -->
+        <!-- Elementuak lerro bakarrean antolatzen dituen HorizontalStackLayout -->
         <HorizontalStackLayout Spacing="20" 
                                HorizontalOptions="Center" 
                                VerticalOptions="Center">
 
-            <!-- Label para mostrar el ID -->
+            <!-- ID erakusten duen etiketa -->
             <Label Text="{Binding Id}" 
                    VerticalOptions="Center" 
                    FontSize="18" 
                    TextColor="Black"
                    FontAttributes="Bold"/>
 
-            <!-- Label para mostrar el concepto -->
+            <!-- Kontzeptua erakusten duen etiketa -->
             <Label Text="{Binding Kontzeptua}" 
                    VerticalOptions="Center" 
                    FontSize="18" 
@@ -32,11 +32,12 @@
                    LineBreakMode="TailTruncation"
                    MaxLines="1"/>
 
-            <!-- Label para mostrar la fecha de la solicitud -->
+            <!-- Eskaera data erakusten duen etiketa -->
             <Label Text="{Binding EskaeraData, StringFormat='{0:dd/MM/yyyy}'}" 
                    VerticalOptions="Center" 
                    FontSize="18" 
                    TextColor="Black"/>
+
         </HorizontalStackLayout>
     </Frame>
 </ContentView>

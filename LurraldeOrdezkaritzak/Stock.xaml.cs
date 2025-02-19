@@ -22,6 +22,11 @@ namespace LurraldeOrdezkaritzak
             _viewModel.LoadKategoriakCommand.Execute(null);
         }
 
+        /// <summary>
+        ///     Xml fitxategitik artikuloak kargatzeko metodoa, eguneratu egiten da DB-a interfazean ere
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void datuakKargatuButton_Clicked(object sender, EventArgs e)
         {
             await _dbmanager.XMLArtikuloakKargatu();

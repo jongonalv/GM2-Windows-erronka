@@ -17,23 +17,19 @@ public partial class Estadistikak : ContentPage
         LoadData();
     }
 
+    /// <summary>
+    ///     Estadistika guztiak kargatzeko erabiliko den metodoa
+    /// </summary>
     private async void LoadData()
     {
-        // Obtén los datos de la base de datos
         var estadistikak = await _dbmanager.GetArtikuloaEstadistikakAsync();
-
-        // Asigna los datos al CollectionView
         collectionView.ItemsSource = estadistikak;
 
         var estadistikak2 = await _dbmanager.GetBazkideakEskaeraEstadistikakAsync();
 
-        // Asigna los datos a un CollectionView o cualquier otro control
         bazkideakCollectionView.ItemsSource = estadistikak2;
 
-        // Obtén los datos de la base de datos
         var saldaerak = await _dbmanager.GetBazkideakArtikuloaSaldaeraAsync();
-
-        // Asigna los datos a un CollectionView o cualquier otro control
         saldaeraCollectionView.ItemsSource = saldaerak;
     }
 

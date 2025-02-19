@@ -17,10 +17,10 @@ namespace LurraldeOrdezkaritzak
             InitializeComponent();
             BindingContext = new EskatuViewModel();
 
-            // Inicializa la base de datos
+            // /// Datu-basea hasieratu ///
             string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "lurraldeOrdezkaritzak.db3");
             _database = new SQLiteAsyncConnection(dbPath);
-            _database.CreateTableAsync<EskaeraEgoitza>().Wait(); // Asegúrate de que la tabla exista
+            _database.CreateTableAsync<EskaeraEgoitza>().Wait(); // /// Ziurtatu taula existitzen dela ///
         }
 
         private async void OnEskatuButtonClickedAsync(object sender, EventArgs e)
@@ -32,6 +32,7 @@ namespace LurraldeOrdezkaritzak
 
                 while (!isValid)
                 {
+                    // /// Erabiltzaileari kantitatea sartzeko eskaera egin ///
                     string result = await DisplayPromptAsync(
                         "Artikuloa",
                         $"Behar den kantitatea nahikoa izateko behar ditugu: {artikuloa.Kantitatea}",
@@ -39,28 +40,31 @@ namespace LurraldeOrdezkaritzak
                         keyboard: Keyboard.Numeric);
 
                     if (string.IsNullOrEmpty(result))
-                        return; // Si el usuario cancela, salir del bucle
+                        return;
 
                     if (int.TryParse(result, out number))
                     {
                         if (number >= artikuloa.Kantitatea)
                         {
+                            // /// Erabiltzaileari baieztapena eskatu ///
                             bool answer = await DisplayAlert("Baieztatu", $"Zihur zaude produktuaren kantitatea {number} izatea?", "Bai", "Ez");
 
                             if (answer)
                             {
-                                isValid = true; // Si el usuario confirma, salir del bucle
-                                await GuardarEnBaseDeDatos(artikuloa, number); // Guardar los datos en la base de datos
+                                isValid = true;
+                                await GuardarEnBaseDeDatos(artikuloa, number);
                                 await DisplayAlert("Eskaera Gordeta", "Eskaera SQLite-n gorde da.", "Bale");
                             }
                         }
                         else
                         {
+                            // /// Errorea: zenbakia txikiegia da ///
                             await DisplayAlert("Errorea", $"Zenbakia {artikuloa.Kantitatea} baino handiagoa edo berdina izan behar da.", "Bale");
                         }
                     }
                     else
                     {
+                        // /// Errorea: balioa ez da zenbaki bat ///
                         await DisplayAlert("Errorea", "Erantzuna ez da egokia. Zenbaki bat sartu.", "Bale");
                     }
                 }
@@ -72,27 +76,27 @@ namespace LurraldeOrdezkaritzak
             var nuevaEskaera = new EskaeraEgoitza
             {
                 Kantitatea = kantitatea,
-                IritsieraDataUnix = DateTimeOffset.UtcNow.ToUnixTimeSeconds(), // Asignamos la fecha y hora actual
-                Entregatuta = false, // Suponemos que la entrega aún no ha sido realizada
-                ArtikuloaId = artikuloa.Id // Relacionamos con el artículo
+                IritsieraDataUnix = DateTimeOffset.UtcNow.ToUnixTimeSeconds(), // /// Uneko data eta ordua gorde ///
+                Entregatuta = false, // /// Hasieran entrega ez da burutu ///
+                ArtikuloaId = artikuloa.Id // /// Artikuloarekin erlazionatu ///
             };
 
-            // Insertar el nuevo registro en la base de datos
+            // /// Datu-basean erregistro berria sartu ///
             await _database.InsertAsync(nuevaEskaera);
 
-            // Obtener el ID recién insertado
+            // /// Sartutako eskaeraren ID-a lortu ///
             int idEskaera = nuevaEskaera.Id;
 
-            // Crear el XML con el nombre basado en el ID
+            // /// Eskaeraren XML fitxategia sortu ///
             CrearXML(artikuloa, kantitatea, idEskaera);
         }
 
         private void CrearXML(Artikuloa artikuloa, int kantitatea, int idEskaera)
         {
-            // Crear el nombre del archivo XML usando el ID de la EskaeraEgoitza
+            // /// XML fitxategiaren izena eskaeraren ID-a erabiliz sortu ///
             string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), $"EskaeraEgoitza{idEskaera}.xml");
 
-            // Cargar el XML existente, si lo hay
+            // /// XML-a kargatu, baldin badago ///
             XDocument xmlDocument;
             if (File.Exists(filePath))
             {
@@ -103,19 +107,17 @@ namespace LurraldeOrdezkaritzak
                 xmlDocument = new XDocument(new XElement("Eskaera"));
             }
 
-            // Agregar un nuevo elemento de producto a la lista de pedidos
+            // /// Produktu berria gehitu eskaeren zerrendara ///
             xmlDocument.Root?.Add(
                 new XElement("Produktua",
                     new XElement("Izena", artikuloa.Izena),
                     new XElement("Kodea", artikuloa.Id),
                     new XElement("EskatutakoKantitatea", kantitatea)
-                    
                 )
             );
 
-            // Guardar el XML actualizado
+            // /// XML eguneratua gorde ///
             xmlDocument.Save(filePath);
         }
-
     }
 }

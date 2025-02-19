@@ -5,16 +5,16 @@ namespace LurraldeOrdezkaritzak.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        // Evento que se dispara cuando una propiedad cambia
+        // Propietatea aldatzen denean gertakizuna (evento) jaurtitzen du
         public event PropertyChangedEventHandler PropertyChanged;
 
-        // Método para notificar que una propiedad ha cambiado
+        // Propietate baten aldaketa jakinarazteko metodoa
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        // Método para actualizar el valor de una propiedad y notificar el cambio
+        // Propietate baten balioa eguneratzen du eta aldaketa jakinarazten du
         protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "")
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))

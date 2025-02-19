@@ -7,27 +7,39 @@ namespace LurraldeOrdezkaritzak;
 
 public partial class EskaerakIkusi : ContentPage
 {
+    /// <summary>
+    /// EskaerakIkusi klasearen eraikitzailea.
+    /// </summary>
+    /// <param name="eskaeraViewModel">Eskaeren bistaratzea kudeatzen duen ViewModel-a.</param>
     public EskaerakIkusi(EskaeraViewModel eskaeraViewModel)
     {
         InitializeComponent();
         BindingContext = eskaeraViewModel;
     }
 
+    /// <summary>
+    /// Atzera botoia sakatzean aurreko orrira itzultzen da.
+    /// </summary>
     private async void Atzera_Clicked(object sender, EventArgs e)
     {
         await Navigation.PopAsync();
     }
 
+    /// <summary>
+    /// "Prestatuta" egoerara aldatzeko metodoa.
+    /// </summary>
     private async void Prestatuta_Clicked(object sender, EventArgs e)
     {
         if (BindingContext is EskaeraViewModel viewModel)
         {
             Debug.WriteLine(viewModel.Egoera);
-            if (viewModel.Egoera.Equals(Egoera.PRESTATZEN.ToString(), StringComparison.OrdinalIgnoreCase)) 
+            if (viewModel.Egoera.Equals(Egoera.PRESTATZEN.ToString(), StringComparison.OrdinalIgnoreCase))
             {
-
+                /// Datu baseko instantzia eskuratu
                 DBManager dbManager = DBManager.GetInstance;
                 Eskaera eskaera = await dbManager.GetEskaeraAsync(viewModel.Id);
+
+                /// Eskaera aurkitzen bada, egoera "Prestatuta" bezala eguneratu
                 if (eskaera != null)
                 {
                     eskaera.Egoera = Egoera.PRESTATUTA;
@@ -48,6 +60,9 @@ public partial class EskaerakIkusi : ContentPage
         }
     }
 
+    /// <summary>
+    /// "Bidalita" egoerara aldatzeko metodoa.
+    /// </summary>
     private async void Bidalita_Clicked(object sender, EventArgs e)
     {
         if (BindingContext is EskaeraViewModel viewModel)
@@ -55,9 +70,11 @@ public partial class EskaerakIkusi : ContentPage
             Debug.WriteLine(viewModel.Egoera);
             if (viewModel.Egoera.Equals(Egoera.PRESTATUTA.ToString(), StringComparison.OrdinalIgnoreCase))
             {
-
+                /// Datu baseko instantzia eskuratu
                 DBManager dbManager = DBManager.GetInstance;
                 Eskaera eskaera = await dbManager.GetEskaeraAsync(viewModel.Id);
+
+                /// Eskaera aurkitzen bada, egoera "Bidalita" bezala eguneratu
                 if (eskaera != null)
                 {
                     eskaera.Egoera = Egoera.BIDALITA;
@@ -77,6 +94,10 @@ public partial class EskaerakIkusi : ContentPage
             }
         }
     }
+
+    /// <summary>
+    /// "Bukatuta" egoerara aldatzeko metodoa.
+    /// </summary>
     private async void Bukatuta_Clicked(object sender, EventArgs e)
     {
         if (BindingContext is EskaeraViewModel viewModel)
@@ -84,9 +105,11 @@ public partial class EskaerakIkusi : ContentPage
             Debug.WriteLine(viewModel.Egoera);
             if (viewModel.Egoera.Equals(Egoera.BIDALITA.ToString(), StringComparison.OrdinalIgnoreCase))
             {
-
+                /// Datu baseko instantzia eskuratu
                 DBManager dbManager = DBManager.GetInstance;
                 Eskaera eskaera = await dbManager.GetEskaeraAsync(viewModel.Id);
+
+                /// Eskaera aurkitzen bada, egoera "Bukatuta" bezala eguneratu
                 if (eskaera != null)
                 {
                     eskaera.Egoera = Egoera.BUKATUTA;
@@ -106,5 +129,4 @@ public partial class EskaerakIkusi : ContentPage
             }
         }
     }
-
 }

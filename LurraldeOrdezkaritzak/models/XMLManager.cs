@@ -59,8 +59,5 @@ namespace lurraldeOrdezkaritzak
                 Console.WriteLine($"Error al guardar el archivo XML: {ex.Message}");
             }
         }
-
-
-
     }
 }

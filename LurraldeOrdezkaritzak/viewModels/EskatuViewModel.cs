@@ -7,11 +7,24 @@ public class EskatuViewModel : BaseViewModel
 {
     private readonly DBManager _dbManager;
 
+    /// <summary>
+    /// Stock gabe dauden artikuluen zerrenda gordetzen du.
+    /// </summary>
     public ObservableCollection<Artikuloa> ArtikuloakOutOfStock { get; set; } = new();
+
+    /// <summary>
+    /// Hautatutako artikuluarekin erlazionatutako eskaeren zerrenda gordetzen du.
+    /// </summary>
     public ObservableCollection<Eskaera> EskaerakRelacionados { get; set; } = new();
 
+    /// <summary>
+    /// Artikulo bat klik egitean ekintza bat burutzeko komandoa.
+    /// </summary>
     public ICommand ArtikuloaClickedCommand { get; }
 
+    /// <summary>
+    /// ViewModel-aren eraikitzailea. DBManager-en instantzia lortzen du eta datuak asinkronoki kargatzen ditu.
+    /// </summary>
     public EskatuViewModel()
     {
         _dbManager = DBManager.GetInstance;
@@ -19,6 +32,10 @@ public class EskatuViewModel : BaseViewModel
         Task.Run(async () => await LoadArtikuloakOutOfStock());
     }
 
+    /// <summary>
+    /// Hautatutako artikuluaren arabera eskaera erlazionatuak kargatzen ditu.
+    /// </summary>
+    /// <param name="artikuloa">Hautatutako artikuloa.</param>
     private async void OnArtikuloaClicked(Artikuloa artikuloa)
     {
         if (artikuloa == null) return;
@@ -33,6 +50,9 @@ public class EskatuViewModel : BaseViewModel
         }
     }
 
+    /// <summary>
+    /// Stock gabe dauden artikuluak kargatzen dituen metodo asinkronoa.
+    /// </summary>
     public async Task LoadArtikuloakOutOfStock()
     {
         var artikuloak = await _dbManager.GetArtikuloakAsync();

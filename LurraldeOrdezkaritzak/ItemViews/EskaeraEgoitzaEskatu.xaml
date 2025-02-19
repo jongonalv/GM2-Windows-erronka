@@ -3,58 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LurraldeOrdezkaritzak.ItemViews.EskaeraEgoitzaEskatu"
              x:Name="EskaeraView">
-    <!-- Agrega un nombre para poder referenciarlo -->
+    <!-- Izena gehitu, erreferentzia egiteko -->
 
-    <!-- Frame principal con bordes redondeados y sombra para mejor apariencia -->
-    <Frame BorderColor="LightGray" 
-           CornerRadius="20" 
-           Padding="15" 
-           BackgroundColor="White" 
-           HeightRequest="90" 
-           VerticalOptions="Start"
-           HasShadow="True">
+    <!-- Marko nagusia, ertz borobilduak eta itzala duen interfazea hobetzeko -->
+    <Frame BorderColor="LightGray" CornerRadius="20" Padding="15" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start" HasShadow="True">
 
-        <!-- GestureRecognizer para manejar el tap en el Frame -->
+        <!-- GestureRecognizer, markoan klik egitean ekintza bat egiteko -->
         <Frame.GestureRecognizers>
-            <TapGestureRecognizer 
-                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ArtikuloaClickedCommand}"
-                CommandParameter="{Binding .}" />
+            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ArtikuloaClickedCommand}" CommandParameter="{Binding .}" />
         </Frame.GestureRecognizers>
 
-        <!-- HorizontalStackLayout para organizar los elementos -->
-        <HorizontalStackLayout Spacing="80" 
-                               HorizontalOptions="Center" 
-                               VerticalOptions="Center">
+        <!-- Elementuak lerro bakarrean antolatzen dituen HorizontalStackLayout -->
+        <HorizontalStackLayout Spacing="80" HorizontalOptions="Center" VerticalOptions="Center">
 
-            <!-- Label para mostrar el ID -->
-            <Label Text="{Binding Id}" 
-                   VerticalOptions="Center" 
-                   FontSize="18" 
-                   TextColor="Black"
-                   FontAttributes="Bold"/>
+            <!-- ID erakusten duen etiketa -->
+            <Label Text="{Binding Id}" VerticalOptions="Center" FontSize="18" TextColor="Black" FontAttributes="Bold"/>
 
-            <!-- Label para mostrar el nombre -->
-            <Label Text="{Binding Izena}" 
-                   VerticalOptions="Center" 
-                   FontSize="18" 
-                   TextColor="Black"/>
+            <!-- Izena erakusten duen etiketa -->
+            <Label Text="{Binding Izena}" VerticalOptions="Center" FontSize="18" TextColor="Black"/>
 
-            <!-- Label para mostrar la cantidad -->
-            <Label Text="{Binding Kantitatea}" 
-                   VerticalOptions="Center" 
-                   FontSize="18" 
-                   TextColor="Black"/>
+            <!-- Kantitatea erakusten duen etiketa -->
+            <Label Text="{Binding Kantitatea}" VerticalOptions="Center" FontSize="18" TextColor="Black"/>
 
-            <!-- Botón para realizar la acción de "Eskatu" -->
-            <Button Text="Eskatu" 
-                    BackgroundColor="#6200EE" 
-                    TextColor="White" 
-                    CornerRadius="10"
-                    FontSize="16"
-                    HeightRequest="40"
-                    WidthRequest="100"
-                    Command="{Binding EskatuCommand}"
-                    CommandParameter="{Binding .}"/>
+            <!-- "Eskatu" ekintza egiteko botoia -->
+            <Button Text="Eskatu" BackgroundColor="#6200EE" TextColor="White" CornerRadius="10" FontSize="16" HeightRequest="40" WidthRequest="100" Command="{Binding EskatuCommand}" CommandParameter="{Binding .}"/>
 
         </HorizontalStackLayout>
     </Frame>
