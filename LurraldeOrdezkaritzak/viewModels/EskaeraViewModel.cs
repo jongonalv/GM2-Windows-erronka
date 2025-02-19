@@ -14,11 +14,71 @@ namespace LurraldeOrdezkaritzak.ViewModels
         private readonly DBManager _dbManager;
 
         public ObservableCollection<EskaeraViewModel> Eskaerak { get; set; } = new();
+        public ObservableCollection<EskaeraViewModel> EskaerakFiltroak { get; set; } = new();
+
+        private ObservableCollection<string> _filtroak;
+        public ObservableCollection<string> Filtroak
+        {
+            get => _filtroak;
+            set
+            {
+                _filtroak = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _filtroAukeratua;
+        public string FiltroAukeratua
+        {
+            get => _filtroAukeratua;
+            set
+            {
+                if (_filtroAukeratua != value)
+                {
+                    _filtroAukeratua = value;
+                    OnPropertyChanged();
+                    FiltroaAplikatu();
+                }
+            }
+        }
+
+        private ObservableCollection<Bazkidea> _bazkideak;
+        public ObservableCollection<Bazkidea> Bazkideak
+        {
+            get => _bazkideak;
+            set
+            {
+                _bazkideak = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private Bazkidea _bazkideaAukeratua;
+        public Bazkidea BazkideaAukeratua
+        {
+            get => _bazkideaAukeratua;
+            set
+            {
+                if (_bazkideaAukeratua != value)
+                {
+                    _bazkideaAukeratua = value;
+                    OnPropertyChanged();
+                    FiltroaAplikatu();
+                }
+            }
+        }
 
         public EskaerakViewModel()
         {
             _dbManager = DBManager.GetInstance;
+            Filtroak = new ObservableCollection<string>
+            {
+                "Eskaerak guztiak",
+                "Hilabeteko eskarak"
+            };
+
             Task.Run(async () => await LoadEskaerak());
+            Task.Run(async () => await LoadBazkideak());
         }
 
         /// <summary>
@@ -39,10 +99,50 @@ namespace LurraldeOrdezkaritzak.ViewModels
 
                 Eskaerak.Add(new EskaeraViewModel(eskaera, bazkidea, artikuloakObservable));
             }
+
+            // Inicialmente, mostrar todas las Eskaerak
+            FiltroaAplikatu();
+        }
+
+        /// <summary>
+        ///     Bazkideak kargatzeko metodoa
+        /// </summary>
+        /// <returns></returns>
+        public async Task LoadBazkideak()
+        {
+            var bazkideakList = await _dbManager.GetBazkideakAsync();
+            Bazkideak = new ObservableCollection<Bazkidea>(bazkideakList);
+
+            // Agregar la opción "Guztiak" al principio de la lista
+            Bazkideak.Insert(0, new Bazkidea { Id = -1, Izena = "Guztiak" });
+        }
+
+        private void FiltroaAplikatu()
+        {
+            var eskaerakFiltroak = Eskaerak.AsEnumerable();
+
+            // Aplicar filtro por fecha
+            if (FiltroAukeratua == "Hilabeteko eskarak")
+            {
+                var gaurkoData = DateTime.Now;
+                eskaerakFiltroak = eskaerakFiltroak.Where(e => DateTime.Parse(e.EskaeraData).Month == gaurkoData.Month && DateTime.Parse(e.EskaeraData).Year == gaurkoData.Year);
+            }
+
+            // Aplicar filtro por Bazkidea
+            if (BazkideaAukeratua != null && BazkideaAukeratua.Id != -1) // Ignorar si se selecciona "Guztiak"
+            {
+                eskaerakFiltroak = eskaerakFiltroak.Where(e => e.Izena == BazkideaAukeratua.Izena);
+            }
+
+            EskaerakFiltroak.Clear();
+            foreach (var eskaera in eskaerakFiltroak)
+            {
+                EskaerakFiltroak.Add(eskaera);
+            }
         }
     }
 
-    public class EskaeraViewModel
+    public class EskaeraViewModel : INotifyPropertyChanged
     {
         public int Id { get; set; }
         public string Izena { get; set; }

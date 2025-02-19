@@ -4,28 +4,66 @@
              x:Class="LurraldeOrdezkaritzak.Eskaerak"
              xmlns:itemViews="clr-namespace:LurraldeOrdezkaritzak.ItemViews"
              Title="Eskaerak">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BasePickerStyle" TargetType="Picker">
+                <Setter Property="BackgroundColor" Value="#333333" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="Opacity" Value="0.9" />
+                <Setter Property="WidthRequest" Value="200" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <Grid>
+
+
+        
         <Image Source="fondobidalketak.jpg" Aspect="AspectFill"
                VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  />
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="10" Margin="0,30,0,0">
+ 
 
-        <Button Text="🛒 Komertzialeen Eskaerak Kargatu"
-                FontSize="18"
-                BackgroundColor="#4CAF50"
-                TextColor="White"
-                CornerRadius="10"
-                Padding="10"
-                Margin="20"
-                Command="{Binding KargatuKomertzialEskaerak}"
+        <!-- Picker para seleccionar el filtro -->
+        <Picker ItemsSource="{Binding Filtroak}"
+                SelectedItem="{Binding FiltroAukeratua, Mode=TwoWay}"
                 HorizontalOptions="Center"
-                VerticalOptions="Start" />
+                VerticalOptions="Start"
+                WidthRequest="200" 
+                Margin="20"
+                Style="{StaticResource BasePickerStyle}"
+                />
+            <!-- Picker para seleccionar el Bazkidea -->
+            <Picker
+                ItemsSource="{Binding Bazkideak}"
+                SelectedItem="{Binding BazkideaAukeratua, Mode=TwoWay}"
+                ItemDisplayBinding="{Binding Izena}"
+                HorizontalOptions="Center"
+                VerticalOptions="Start"
+                WidthRequest="200" 
+                Margin="20"
+                Style="{StaticResource BasePickerStyle}"/>
 
-        <ScrollView Margin="0,60,0,0">
+            <Button Text="🛒 Komertzialeen Eskaerak Kargatu"
+               FontSize="18"
+               BackgroundColor="#4CAF50"
+               TextColor="White"
+               CornerRadius="10"
+               Padding="10"
+               Margin="20"
+               HorizontalOptions="Center"
+               VerticalOptions="Start" 
+               Clicked="datuakKargatuButton_Clicked" />
+
+        </HorizontalStackLayout>
+        <ScrollView Margin="0,120,0,0">
             <HorizontalStackLayout HorizontalOptions="Center">
                 <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
-                       Opacity="0.9" WidthRequest="700" HeightRequest="600"
+                       Opacity="0.9" WidthRequest="800" HeightRequest="600"
                        HorizontalOptions="Center">
 
-                    <CollectionView ItemsSource="{Binding Eskaerak}">
+                    <CollectionView ItemsSource="{Binding EskaerakFiltroak}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <itemViews:Eskaerak />
