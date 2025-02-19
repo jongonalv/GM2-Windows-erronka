@@ -1,6 +1,5 @@
 ﻿using SQLite;
 
-[SQLite.Table("EskaeraEgoitza")]
 public class EskaeraEgoitza
 {
     [PrimaryKey, AutoIncrement, SQLite.Column("id")]
@@ -17,10 +16,22 @@ public class EskaeraEgoitza
 
     [Column("artikuloa_id")]
     public int ArtikuloaId { get; set; }
+
+    [Ignore]
     public DateTime Iritsiera_data
     {
-        get => DateTimeOffset.FromUnixTimeSeconds(IritsieraDataUnix).DateTime;
-        set => IritsieraDataUnix = new DateTimeOffset(value).ToUnixTimeSeconds();
+        get
+        {
+            return IritsieraDataUnix > 0
+                ? DateTimeOffset.FromUnixTimeSeconds(IritsieraDataUnix).DateTime
+                : DateTime.MinValue;
+        }
+        set
+        {
+            IritsieraDataUnix = value != DateTime.MinValue
+                ? new DateTimeOffset(value).ToUnixTimeSeconds()
+                : 0;
+        }
     }
 
     public EskaeraEgoitza() { }

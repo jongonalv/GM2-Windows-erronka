@@ -35,8 +35,10 @@ namespace LurraldeOrdezkaritzak.ViewModels
                 string artikuluaIzena = await _dbManager.GetArtikuloaById(eskaeraEgoitza.ArtikuloaId);
                 var itemViewModel = new EskaeraEgoitzaItemViewModel(eskaeraEgoitza, artikuluaIzena);
 
-                // Filtrado por fecha
-                if (eskaeraEgoitza.Iritsiera_data >= fechaActual)
+                var fechaEskaera = DateTimeOffset.FromUnixTimeSeconds(eskaeraEgoitza.IritsieraDataUnix).DateTime;
+
+                // Comparar correctamente fechas
+                if (fechaEskaera >= fechaActual)
                 {
                     EskaeraEgoitza.Add(itemViewModel);
                 }
@@ -45,24 +47,26 @@ namespace LurraldeOrdezkaritzak.ViewModels
                     EskaeraEgoitzaHistoriala.Add(itemViewModel);
                 }
             }
+
         }
     }
 
     public class EskaeraEgoitzaItemViewModel
-{
-    public int Id { get; set; }
-    public int Kantitatea { get; set; }
-    public string IritsieraData { get; set; }
-    public bool Entregatuta { get; set; }
-    public string ArtikuluaIzena { get; set; }
-
-    public EskaeraEgoitzaItemViewModel(EskaeraEgoitza eskaeraEgoitza, string artikuluaIzena)
     {
-        Id = eskaeraEgoitza.Id;
-        Kantitatea = eskaeraEgoitza.Kantitatea;
-        IritsieraData = eskaeraEgoitza.Iritsiera_data.ToString("yyyy-MM-dd");
-        Entregatuta = eskaeraEgoitza.Entregatuta;
-        ArtikuluaIzena = artikuluaIzena;
+        public int Id { get; set; }
+        public int Kantitatea { get; set; }
+        public DateTime IritsieraData { get; set; }
+        public bool Entregatuta { get; set; }
+        public string ArtikuluaIzena { get; set; }
+
+        public EskaeraEgoitzaItemViewModel(EskaeraEgoitza eskaeraEgoitza, string artikuluaIzena)
+        {
+            Id = eskaeraEgoitza.Id;
+            Kantitatea = eskaeraEgoitza.Kantitatea;
+            IritsieraData = DateTimeOffset.FromUnixTimeSeconds(eskaeraEgoitza.IritsieraDataUnix).DateTime;
+            Entregatuta = eskaeraEgoitza.Entregatuta;
+            ArtikuluaIzena = artikuluaIzena;
+        }
     }
-}
+
 }

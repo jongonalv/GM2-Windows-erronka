@@ -136,7 +136,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Label Text="Eskaera ID" Grid.Column="0" Style="{StaticResource BaseLabelStyle}" />
-                                    <Label Text="Kontzeptua" Grid.Column="1" Style="{StaticResource BaseLabelStyle}" />
+                                    <Label Text="Helbidea" Grid.Column="1" Style="{StaticResource BaseLabelStyle}" />
                                     <Label Text="Kantitatea" Grid.Column="2" Style="{StaticResource BaseLabelStyle}" />
                                 </Grid>
                             </Frame>
