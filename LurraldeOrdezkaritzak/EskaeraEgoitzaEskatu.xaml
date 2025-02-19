@@ -32,47 +32,56 @@
                     <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
                             Opacity="0.9" WidthRequest="700" HeightRequest="600"
                             HorizontalOptions="Center">
-                        <ScrollView>
-                            <CollectionView ItemsSource="{Binding ArtikuloakOutOfStock}">
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate>
+                        <ScrollView >
+                            <CollectionView ItemsSource="{Binding ArtikuloakOutOfStock}" >
+                                <CollectionView.ItemTemplate >
+                                    <DataTemplate >
                                         <Frame BorderColor="LightGray" 
                                                CornerRadius="20" 
                                                Padding="15" 
                                                BackgroundColor="White" 
                                                HeightRequest="90" 
                                                VerticalOptions="Start"
-                                               HasShadow="True">
+                                               HasShadow="True" > 
                                             <Frame.GestureRecognizers>
                                                 <TapGestureRecognizer 
                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ArtikuloaClickedCommand}"
                                                     CommandParameter="{Binding .}" />
                                             </Frame.GestureRecognizers>
-                                            <HorizontalStackLayout Spacing="80" 
-                                                                   HorizontalOptions="Center" 
-                                                                   VerticalOptions="Center">
-                                                <Label Text="{Binding Id}" 
-                                                       VerticalOptions="Center" 
-                                                       FontSize="18" 
-                                                       TextColor="Black"
-                                                       FontAttributes="Bold"/>
-                                                <Label Text="{Binding Izena}" 
-                                                       VerticalOptions="Center" 
-                                                       FontSize="18" 
-                                                       TextColor="Black"/>
-                                                <Label Text="{Binding Kantitatea}" 
-                                                       VerticalOptions="Center" 
-                                                       FontSize="18" 
-                                                       TextColor="Black"/>
-                                                <Button Text="Eskatu" 
-                                                        BackgroundColor="#6200EE" 
-                                                        TextColor="White" 
-                                                        CornerRadius="10"
-                                                        FontSize="16"
-                                                        HeightRequest="40"
-                                                        WidthRequest="100"
-                                                        Clicked="OnEskatuButtonClickedAsync"/>
-                                            </HorizontalStackLayout>
+
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <!-- ID -->
+                                                <Label Text="{Binding Id}" Grid.Column="0" VerticalOptions="Center" 
+                                               FontSize="18" TextColor="Black" FontAttributes="Bold" 
+                                               HorizontalOptions="Start" />
+
+                                                <!-- Izena -->
+                                                <Label Text="{Binding Izena}" Grid.Column="1" VerticalOptions="Center" 
+                                                 FontSize="18" TextColor="Black" HorizontalOptions="Start" />
+
+                                                <!-- Kantitatea -->
+                                                <Label Text="{Binding Kantitatea}" Grid.Column="2" VerticalOptions="Center" 
+                                                FontSize="18" TextColor="Black" HorizontalOptions="Center" />
+
+                                                <!-- Eskatu Button -->
+                                                <Button Text="Eskatu" Grid.Column="3" 
+                                                    BackgroundColor="#6200EE" 
+                                                    TextColor="White" 
+                                                    CornerRadius="10"
+                                                    FontSize="16"
+                                                    HeightRequest="40"
+                                                    WidthRequest="100"
+                                                    Clicked="OnEskatuButtonClickedAsync"
+                                                    HorizontalOptions="End" />
+                                            </Grid>
                                         </Frame>
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>

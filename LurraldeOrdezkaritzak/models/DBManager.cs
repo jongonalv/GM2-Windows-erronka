@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using static LurraldeOrdezkaritzak.Estadistikak;
 
 namespace lurraldeOrdezkaritzak
 {
@@ -345,6 +346,95 @@ namespace lurraldeOrdezkaritzak
             }
 
         }
+
+        //Kontsultak
+        public async Task<List<ArtikuloaEstadistika>> GetArtikuloaEstadistikakAsync()
+        {
+            try
+            {
+                // Definir la consulta SQL
+                string query = @"
+            SELECT 
+                a.id AS ArtikuloId,
+                a.izena AS ArtikuloIzena,
+                SUM(ea.kantitatea) AS TotalSalduta
+            FROM EskaeraArtikuloa ea
+            JOIN Artikuloa a ON ea.artikuloa_id = a.id
+            GROUP BY a.id, a.izena
+            ORDER BY TotalSalduta DESC;";
+
+                // Ejecutar la consulta y mapear los resultados a la clase ArtikuloaEstadistika
+                var estadistikak = await _database.QueryAsync<ArtikuloaEstadistika>(query);
+
+                return estadistikak;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Errorea estadistikak lortzerakoan: {ex.Message}");
+                return new List<ArtikuloaEstadistika>(); // Devuelve una lista vacía en caso de error
+            }
+        }
+
+        public async Task<List<BazkideaEskaeraEstadistika>> GetBazkideakEskaeraEstadistikakAsync()
+        {
+            try
+            {
+                // Definir la consulta SQL
+                string query = @"
+            SELECT 
+                b.id AS BazkideaId,
+                b.izena AS BazkideaIzena,
+                COUNT(e.id) AS EskaeraTotalak
+            FROM Bazkidea b
+            JOIN Eskaera e ON b.id = e.bazkideaId
+            GROUP BY b.id, b.izena
+            ORDER BY EskaeraTotalak DESC;";
+
+                // Ejecutar la consulta y mapear los resultados a la clase BazkideaEskaeraEstadistika
+                var estadistikak2 = await _database.QueryAsync<BazkideaEskaeraEstadistika>(query);
+
+                return estadistikak2;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Errorea bazkideen eskaera estadistikak lortzerakoan: {ex.Message}");
+                return new List<BazkideaEskaeraEstadistika>(); // Devuelve una lista vacía en caso de error
+            }
+        }
+
+        public async Task<List<BazkideaArtikuloaSaldaera>> GetBazkideakArtikuloaSaldaeraAsync()
+        {
+            try
+            {
+                // Definir la consulta SQL
+                string query = @"
+            SELECT 
+                b.id AS BazkideaId,
+                b.izena AS BazkideaIzena,
+                a.id AS ArtikuloaId,
+                a.izena AS ArtikuloaIzena,
+                SUM(ea.kantitatea) AS Unitateak,
+                SUM(ea.guztira) AS TotalSaldaera
+            FROM Bazkidea b
+            JOIN Eskaera e ON b.id = e.bazkideaId
+            JOIN EskaeraArtikuloa ea ON e.id = ea.eskaera_id
+            JOIN Artikuloa a ON ea.artikuloa_id = a.id
+            GROUP BY b.id, b.izena, a.id, a.izena
+            ORDER BY TotalSaldaera DESC;";
+
+                // Ejecutar la consulta y mapear los resultados a la clase BazkideaArtikuloaSaldaera
+                var saldaerak = await _database.QueryAsync<BazkideaArtikuloaSaldaera>(query);
+
+                return saldaerak;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Errorea bazkideen artikuluen saldaerak lortzerakoan: {ex.Message}");
+                return new List<BazkideaArtikuloaSaldaera>(); // Devuelve una lista vacía en caso de error
+            }
+        }
+
+
 
     }
 }

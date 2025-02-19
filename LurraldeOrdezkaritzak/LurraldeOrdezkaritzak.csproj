@@ -129,6 +129,15 @@
 	  <MauiXaml Update="ItemViews\EskeraEgoitzaIkusi.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="ItemViews\EstadistikaArtikuloa.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ItemViews\EstadistikaBazkideBenefizio.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ItemViews\EstadistikaBazkideGehien.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="ItemViews\Stock.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
