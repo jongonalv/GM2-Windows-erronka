@@ -32,7 +32,7 @@
                        FontSize="18" TextColor="#333333" HorizontalOptions="Center" />
 
                 <!-- Botón Entregatu -->
-                <Button Text="Entregatu" Grid.Column="3" VerticalOptions="Center" 
+                <Button x:Name="EntregatuButton" Text="Entregatu" Grid.Column="3" VerticalOptions="Center" 
                         BackgroundColor="#007BFF" TextColor="White" CornerRadius="8" 
                         FontSize="16" FontAttributes="Bold" HorizontalOptions="End" 
                         Padding="15,8" Clicked="OnEntregatuClicked" />

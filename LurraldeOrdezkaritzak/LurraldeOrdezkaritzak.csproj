@@ -81,9 +81,6 @@
 	  <Compile Update="Eskaerak.xaml.cs">
 	    <DependentUpon>Eskaerak.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="ItemViews\EskaeraEgoitzaEskatu.xaml.cs">
-	    <DependentUpon>EskaeraEgoitzaEskatu.xaml</DependentUpon>
-	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>

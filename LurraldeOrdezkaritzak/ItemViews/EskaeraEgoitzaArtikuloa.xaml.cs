@@ -9,6 +9,21 @@ namespace LurraldeOrdezkaritzak.ItemViews
         public EskaeraEgoitzaArtikuloa()
         {
             InitializeComponent();
+
+            // Asegúrate de que el botón esté correctamente desactivado al inicializar
+            this.BindingContextChanged += (sender, args) =>
+            {
+                if (BindingContext is EskaeraEgoitzaItemViewModel viewModel)
+                {
+                    EntregatuButton.IsEnabled = !viewModel.Entregatuta;
+                    if (viewModel.Entregatuta)
+                    {
+                        EntregatuButton.Text = "Entregatuta";
+                        EntregatuButton.BackgroundColor = Colors.Gray;
+                        EntregatuButton.TextColor = Colors.White;
+                    }
+                }
+            };
         }
 
         private async void OnEntregatuClicked(object sender, EventArgs e)
