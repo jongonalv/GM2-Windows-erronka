@@ -243,6 +243,16 @@ namespace lurraldeOrdezkaritzak
             }
         }
 
+        public async Task<List<Eskaera>> GetEskaerakByArtikuloaIdAsync(int artikuloaId)
+        {
+            var query = @"
+        SELECT e.*
+        FROM Eskaera e
+        INNER JOIN EskaeraArtikuloa ea ON e.id = ea.eskaera_id
+        WHERE ea.artikuloa_id = ?";
+            return await _database.QueryAsync<Eskaera>(query, artikuloaId);
+        }
+
         public async Task<EskaeraEgoitza> GetEskaeraEgoitzaByIdAsync(int id)
         {
             var query = @"

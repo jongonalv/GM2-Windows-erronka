@@ -5,45 +5,64 @@
              xmlns:itemViews="clr-namespace:LurraldeOrdezkaritzak.ItemViews"
              Title="EskaeraEgoitzaEskatu">
     <Grid>
+        <!-- Fondo de la página -->
         <Image Source="fondoegoitzaeskatu.jpg" Aspect="AspectFill"
-            VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  />
+               VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
 
         <ScrollView>
             <HorizontalStackLayout HorizontalOptions="Center" Spacing="150">
+                <!-- Columna izquierda: ArtikuloakOutOfStock -->
                 <VerticalStackLayout VerticalOptions="Center">
-                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="50">
-                        <Entry Placeholder="Id-a jarri" PlaceholderColor="Gray" BackgroundColor="White" Opacity="0.9" WidthRequest="100" HeightRequest="40" />
-                        <Picker BackgroundColor="White" Opacity="0.9" WidthRequest="200" HeightRequest="40">
-                            <Picker.Items>
-                                <x:String>Opción 1</x:String>
-                                <x:String>Opción 2</x:String>
-                                <x:String>Opción 3</x:String>
-                            </Picker.Items>
-                        </Picker>
-                    </HorizontalStackLayout>
 
+                    <!-- Cabecera para ArtikuloakOutOfStock -->
+                    <Grid BackgroundColor="LightGray" Padding="5" HorizontalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Text="ID" FontAttributes="Bold" FontSize="18" TextColor="Black" HorizontalOptions="Center" />
+                        <Label Text="Artikulua" FontAttributes="Bold" FontSize="18" TextColor="Black" Grid.Column="1" HorizontalOptions="Center" />
+                        <Label Text="Zenbat falta" FontAttributes="Bold" FontSize="18" TextColor="Black" Grid.Column="2" HorizontalOptions="Center" />
+                        <Label Text="Eskatu" FontAttributes="Bold" FontSize="18" TextColor="Black" Grid.Column="3" HorizontalOptions="Center" />
+                    </Grid>
 
+                    <!-- Lista de ArtikuloakOutOfStock -->
                     <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
-                        Opacity="0.9" WidthRequest="700" HeightRequest="600"
-                        HorizontalOptions="Center">
+                            Opacity="0.9" WidthRequest="700" HeightRequest="600"
+                            HorizontalOptions="Center">
                         <ScrollView>
-                            <itemViews:EskaeraEgoitzaEskatu x:Name="EskaeraView" />
+                            <CollectionView ItemsSource="{Binding ArtikuloakOutOfStock}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <!-- Usar el ArtikuloaItemView -->
+                                        <itemViews:EskaeraEgoitzaEskatu />
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
                         </ScrollView>
                     </Frame>
                 </VerticalStackLayout>
+
+                <!-- Columna derecha: EskaerakRelacionados -->
                 <VerticalStackLayout VerticalOptions="Center">
-                    <Label Text="Id Produktua:            Izena:"  TextColor="Black" FontSize="25" FontAttributes="Bold"/>
+                    <Label Text="Id Produktua:            Izena:" TextColor="Black" FontSize="25" FontAttributes="Bold"/>
                     <Frame CornerRadius="10" BorderColor="Gray" Padding="20" BackgroundColor="White"
-                        Opacity="0.9" WidthRequest="700" HeightRequest="600"
-                        HorizontalOptions="Center">
+                            Opacity="0.9" WidthRequest="700" HeightRequest="600"
+                            HorizontalOptions="Center">
                         <ScrollView>
-                            <itemViews:EskaeraEgoitzaEskatuProduktua />
+                            <CollectionView ItemsSource="{Binding EskaerakRelacionados}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <itemViews:EskaeraEgoitzaEskatuProduktua />
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
                         </ScrollView>
                     </Frame>
                 </VerticalStackLayout>
             </HorizontalStackLayout>
-
         </ScrollView>
-
     </Grid>
 </ContentPage>

@@ -1,23 +1,61 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LurraldeOrdezkaritzak.ItemViews.EskaeraEgoitzaEskatu">
-    <VerticalStackLayout Spacing="20">
-        <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start">
-            <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center">
-                <Label Text="1" VerticalOptions="Center" FontSize="23" TextColor="Black"/>
-                <Label Text="Martillito" VerticalOptions="Center" FontSize="23" TextColor="Black"/>
-                <Label Text="120" VerticalOptions="Center" FontSize="23" TextColor="Black"/>
-                <Button HeightRequest="20" WidthRequest="100" Text="Eskatu" BackgroundColor="Black"  Clicked="OnEskatuButtonClickedAsync" TextColor="White"/>
-            </HorizontalStackLayout>
-        </Frame>
-        <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start">
-            <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center" >
-                <Label Text="3" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-                <Label Text="Torloju" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-                <Label Text="12" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-                <Button HeightRequest="20" WidthRequest="100" Text="Eskatu" BackgroundColor="Black" Clicked="OnEskatuButtonClickedAsync"  TextColor="White"/>
-            </HorizontalStackLayout>
-        </Frame>
-    </VerticalStackLayout>
+             x:Class="LurraldeOrdezkaritzak.ItemViews.EskaeraEgoitzaEskatu"
+             x:Name="EskaeraView">
+    <!-- Agrega un nombre para poder referenciarlo -->
+
+    <!-- Frame principal con bordes redondeados y sombra para mejor apariencia -->
+    <Frame BorderColor="LightGray" 
+           CornerRadius="20" 
+           Padding="15" 
+           BackgroundColor="White" 
+           HeightRequest="90" 
+           VerticalOptions="Start"
+           HasShadow="True">
+
+        <!-- GestureRecognizer para manejar el tap en el Frame -->
+        <Frame.GestureRecognizers>
+            <TapGestureRecognizer 
+                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ArtikuloaClickedCommand}"
+                CommandParameter="{Binding .}" />
+        </Frame.GestureRecognizers>
+
+        <!-- HorizontalStackLayout para organizar los elementos -->
+        <HorizontalStackLayout Spacing="80" 
+                               HorizontalOptions="Center" 
+                               VerticalOptions="Center">
+
+            <!-- Label para mostrar el ID -->
+            <Label Text="{Binding Id}" 
+                   VerticalOptions="Center" 
+                   FontSize="18" 
+                   TextColor="Black"
+                   FontAttributes="Bold"/>
+
+            <!-- Label para mostrar el nombre -->
+            <Label Text="{Binding Izena}" 
+                   VerticalOptions="Center" 
+                   FontSize="18" 
+                   TextColor="Black"/>
+
+            <!-- Label para mostrar la cantidad -->
+            <Label Text="{Binding Kantitatea}" 
+                   VerticalOptions="Center" 
+                   FontSize="18" 
+                   TextColor="Black"/>
+
+            <!-- Botón para realizar la acción de "Eskatu" -->
+            <Button Text="Eskatu" 
+                    BackgroundColor="#6200EE" 
+                    TextColor="White" 
+                    CornerRadius="10"
+                    FontSize="16"
+                    HeightRequest="40"
+                    WidthRequest="100"
+                    Command="{Binding EskatuCommand}"
+                    CommandParameter="{Binding .}"/>
+
+        </HorizontalStackLayout>
+    </Frame>
 </ContentView>

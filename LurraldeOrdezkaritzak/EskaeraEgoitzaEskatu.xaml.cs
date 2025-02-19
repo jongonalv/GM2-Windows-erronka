@@ -10,6 +10,7 @@ namespace LurraldeOrdezkaritzak
 
             // Encuentra el ContentView en el XAML
             var contentView = this.FindByName<LurraldeOrdezkaritzak.ItemViews.EskaeraEgoitzaEskatu>("EskaeraView");
+            BindingContext = new EskatuViewModel();
 
             // Suscríbete al evento del ContentView
             if (contentView != null)

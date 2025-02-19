@@ -2,20 +2,41 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LurraldeOrdezkaritzak.ItemViews.EskaeraEgoitzaEskatuProduktua">
-    <VerticalStackLayout Spacing="20">
-        <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start">
-            <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center">
-                <Label Text="1" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-                <Label Text="Bombardeen renfe" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-                <Label Text="70" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-            </HorizontalStackLayout>
-        </Frame>
-        <Frame BorderColor="Black" CornerRadius="20" Padding="0" BackgroundColor="White" HeightRequest="90" VerticalOptions="Start">
-            <HorizontalStackLayout  Spacing="80" HorizontalOptions="Center">
-                <Label Text="2" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-                <Label Text="Pa defenderme" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-                <Label Text="12" VerticalOptions="Center" FontSize="23"  TextColor="Black"/>
-            </HorizontalStackLayout>
-        </Frame>
-    </VerticalStackLayout>
+
+    <!-- Frame principal con bordes redondeados y sombra para mejor apariencia -->
+    <Frame BorderColor="LightGray" 
+           CornerRadius="20" 
+           Padding="15" 
+           BackgroundColor="White" 
+           HeightRequest="90" 
+           VerticalOptions="Start"
+           HasShadow="True">
+
+        <!-- HorizontalStackLayout para organizar los elementos -->
+        <HorizontalStackLayout Spacing="20" 
+                               HorizontalOptions="Center" 
+                               VerticalOptions="Center">
+
+            <!-- Label para mostrar el ID -->
+            <Label Text="{Binding Id}" 
+                   VerticalOptions="Center" 
+                   FontSize="18" 
+                   TextColor="Black"
+                   FontAttributes="Bold"/>
+
+            <!-- Label para mostrar el concepto -->
+            <Label Text="{Binding Kontzeptua}" 
+                   VerticalOptions="Center" 
+                   FontSize="18" 
+                   TextColor="Black"
+                   LineBreakMode="TailTruncation"
+                   MaxLines="1"/>
+
+            <!-- Label para mostrar la fecha de la solicitud -->
+            <Label Text="{Binding EskaeraData, StringFormat='{0:dd/MM/yyyy}'}" 
+                   VerticalOptions="Center" 
+                   FontSize="18" 
+                   TextColor="Black"/>
+        </HorizontalStackLayout>
+    </Frame>
 </ContentView>
