@@ -325,26 +325,24 @@ namespace lurraldeOrdezkaritzak
         }
         /// <summary>
         /// XML fitxategi bat aukeratu eta bertako datuak SQLite datu-basean txertatzen ditu.
-        /// Komertzialen eskaerak kargatzeko pentsatuta dagoen metodoa da
+        /// Komertzialen eskaerak eta bazkideak kargatzeko pentsatuta dagoen metodoa da.
         /// </summary>
         public async Task XMLDatuakKargatu()
         {
-            // Fitxategi mota onartua zehazten da (XML).
             var xmlFileType = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
-            {
-                { DevicePlatform.WinUI, new[] { ".xml" } }
-            });
+    {
+        { DevicePlatform.WinUI, new[] { ".xml" } }
+    });
 
-            // Fitxategi hautatzailea irekitzen da.
             var pickResult = await FilePicker.PickAsync(new PickOptions
             {
                 FileTypes = xmlFileType,
-                PickerTitle = "XML Fitxategi bat aukeratu mesedez." // "Por favor, seleccione un archivo XML."
+                PickerTitle = "XML Fitxategi bat aukeratu mesedez."
             });
 
             if (pickResult == null)
             {
-                Debug.WriteLine("Ez da aukeratu fitxategirik"); // "No se ha seleccionado ningún archivo."
+                Debug.WriteLine("Ez da aukeratu fitxategirik");
                 return;
             }
 
@@ -352,10 +350,18 @@ namespace lurraldeOrdezkaritzak
 
             try
             {
-                // XML fitxategia kargatzen da.
                 var xmlDoc = XDocument.Load(fitxHelbidea);
 
-                // "Eskaerak" elementutik datuak irakurtzen dira.
+                // "Bazkideak" elementutik datuak irakurtzen dira
+                var xmlBazkideak = xmlDoc.Root.Element("Bazkideak")?.Descendants("Bazkidea")?.Select(b => new Bazkidea
+                {
+                    Id = (int)b.Element("id"),
+                    Izena = (string)b.Element("izena"),
+                    Email = (string)b.Element("email"),
+                    Telefonoa = (string)b.Element("telefonoa"),
+                    Helbidea = (string)b.Element("helbidea"),
+                }).ToList() ?? new List<Bazkidea>();
+
                 var xmlEskaerak = xmlDoc.Root.Element("Eskaerak").Descendants("Eskaera").Select(e => new Eskaera
                 {
                     Id = (int)e.Element("id"),
@@ -366,7 +372,6 @@ namespace lurraldeOrdezkaritzak
                     Guztira = (double)e.Element("guztira")
                 }).ToList();
 
-                // "EskaeraArtikuloak" elementutik datuak irakurtzen dira.
                 var xmlEskaeraArtikuloak = xmlDoc.Root.Element("EskaeraArtikuloak").Descendants("EskaeraArtikuloa").Select(ea => new EskaeraArtikuloa
                 {
                     Id = (int)ea.Element("id"),
@@ -377,56 +382,51 @@ namespace lurraldeOrdezkaritzak
                     EskaeraId = (int)ea.Element("eskaera_id")
                 }).ToList();
 
-                // XML fitxategiak daturik ez badu, mezu bat erakusten da.
-                if (xmlEskaerak.Count == 0 && xmlEskaeraArtikuloak.Count == 0)
+                foreach (var bazkidea in xmlBazkideak)
                 {
-                    Debug.WriteLine("Ez dira aurkitu daturik XML fitxategian"); // "No se han encontrado datos en el archivo XML."
-                    return;
+                    try
+                    {
+                        Debug.WriteLine($"Insertando Bazkidea ID: {bazkidea.Id}");
+                        await _database.InsertAsync(bazkidea);
+                    }
+                    catch (SQLiteException ex)
+                    {
+                        Debug.WriteLine($"Error al insertar Bazkidea ID {bazkidea.Id}: {ex.Message}");
+                    }
                 }
 
-                Debug.WriteLine($"Eskaerak encontrados: {xmlEskaerak.Count}"); // "Órdenes encontradas: {xmlEskaerak.Count}"
-                Debug.WriteLine($"EskaeraArtikuloak encontrados: {xmlEskaeraArtikuloak.Count}"); // "Artículos de orden encontrados: {xmlEskaeraArtikuloak.Count}"
-
-                // Eskaerak datu-basean txertatzen dira.
                 foreach (var xmlEskaera in xmlEskaerak)
                 {
                     try
                     {
-                        Debug.WriteLine($"Insertando Eskaera ID: {xmlEskaera.Id}"); // "Insertando orden ID: {xmlEskaera.Id}"
+                        Debug.WriteLine($"Insertando Eskaera ID: {xmlEskaera.Id}");
                         await _database.InsertAsync(xmlEskaera);
                     }
                     catch (SQLiteException ex)
                     {
                         Debug.WriteLine($"Error al insertar Eskaera ID {xmlEskaera.Id}: {ex.Message}");
-                        // "Error al insertar orden ID {xmlEskaera.Id}: {ex.Message}"
                     }
                 }
 
-                // EskaeraArtikuloak datu-basean txertatzen dira.
                 foreach (var xmlEskaeraArtikuloa in xmlEskaeraArtikuloak)
                 {
                     try
                     {
                         Debug.WriteLine($"Insertando EskaeraArtikuloa ID: {xmlEskaeraArtikuloa.Id}");
-                        // "Insertando artículo de orden ID: {xmlEskaeraArtikuloa.Id}"
                         await _database.InsertAsync(xmlEskaeraArtikuloa);
                     }
                     catch (SQLiteException ex)
                     {
                         Debug.WriteLine($"Error al insertar EskaeraArtikuloa ID {xmlEskaeraArtikuloa.Id}: {ex.Message}");
-                        // "Error al insertar artículo de orden ID {xmlEskaeraArtikuloa.Id}: {ex.Message}"
                     }
                 }
             }
-            catch (SQLiteException ex)
-            {
-                Debug.WriteLine($"SQLiteException: {ex.Message}"); // "Excepción de SQLite: {ex.Message}"
-            }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Erroreren bat gertatu da: {ex.Message}"); // "Ha ocurrido un error: {ex.Message}"
+                Debug.WriteLine($"Erroreren bat gertatu da: {ex.Message}");
             }
         }
+
 
 
         /// <summary>

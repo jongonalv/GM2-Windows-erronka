@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+    <Bazkideak>
+        <Bazkidea>
+            <id>10</id>
+            <izena>Jon Gonalvez</izena>
+            <helbidea>Iurre auzoa 15 3b, Tolosa</helbidea>
+            <telefonoa>123456789</telefonoa>
+            <email>jon@example.com</email>
+        </Bazkidea>
+    </Bazkideak>
+    
+    <Eskaerak>
+        <Eskaera>
+            <id>50</id>
+            <eskaeraData>2024-02-20</eskaeraData>
+            <bazkideaId>4</bazkideaId>
+            <kontzeptua>Iurre auzoa 15 3b, Tolosa</kontzeptua>
+            <egoera>PRESTATZEN</egoera>
+            <guztira>1500.75</guztira>
+        </Eskaera>
+        <Eskaera>
+            <id>51</id>
+            <eskaeraData>2024-02-19</eskaeraData>
+            <bazkideaId>4</bazkideaId>
+            <kontzeptua>Larramendi auzoa 15 3b, Tolosa</kontzeptua>
+            <egoera>PRESTATZEN</egoera>
+            <guztira>450.50</guztira>
+        </Eskaera>
+    </Eskaerak>
+
+    <EskaeraArtikuloak>
+        <EskaeraArtikuloa>
+            <id>110</id>
+            <guztira>750.50</guztira>
+            <kantitatea>2</kantitatea>
+            <deskontua>10</deskontua>
+            <artikuloa_id>38</artikuloa_id>
+            <eskaera_id>50</eskaera_id>
+        </EskaeraArtikuloa>
+        <EskaeraArtikuloa>
+            <id>111</id>
+            <guztira>450.50</guztira>
+            <kantitatea>1</kantitatea>
+            <deskontua>5</deskontua>
+            <artikuloa_id>37</artikuloa_id>
+            <eskaera_id>51</eskaera_id>
+        </EskaeraArtikuloa>
+    </EskaeraArtikuloak>
+</Root>
